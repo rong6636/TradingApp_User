@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void del(View view) {
+        if (data.size()>10)
+        {
+            data.remove(1);
+        }
         if (data.size()>0)
         {
             data.remove(0);
