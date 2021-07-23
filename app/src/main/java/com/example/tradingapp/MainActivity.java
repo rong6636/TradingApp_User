@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] from = {"title"};
     private int[] to = {R.id.item_title};
+    private int[] t0o = {R.id.item_title};
     private LinkedList<HashMap<String, String>> data = new LinkedList<>();
     private SimpleAdapter adapter;
     @Override
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.list);
         initlistView();
+
     }
 
     private void initlistView(){
