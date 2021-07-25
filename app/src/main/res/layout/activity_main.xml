@@ -6,35 +6,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
+    android:background="#1d2333"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="0dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add"
-            android:onClick="add"
-            ></Button>
-        <Button
-            android:layout_width="0dp"
+            android:text="登入"
+            android:textColor="#FFF"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:textSize="25dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Del"
-            android:onClick="del"
-            ></Button>
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            >
+            <EditText
+                android:id="@+id/edt_singin_inputuser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="8dp"
+                android:padding="5dp"
+                android:layout_marginVertical="8dp"
+                android:background="#FFF"
+                android:hint="帳號"
+                android:textColor="#999"
+                android:textSize="20dp"
+                android:singleLine="true"
+                />
+
+            <EditText
+                android:id="@+id/edt_singin_inputpw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="5dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginVertical="8dp"
+                android:background="#FFF"
+                android:hint="密碼"
+                android:textColor="#999"
+                android:textSize="20dp"
+                android:singleLine="true"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/btn_signup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="註冊"
+                android:textSize="20dp"
+                android:background="#0000"
+                android:textColor="#FFF"
+                android:onClick="signup"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="忘記密碼"
+                android:textSize="20dp"
+                android:background="#0000"
+                android:textColor="#FFF"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="記住密碼"
+                android:textSize="20dp"
+                android:background="#0000"
+                android:textColor="#FFF"
+            />
+
+        </LinearLayout>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="登入"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:onClick="login"
+            android:background="@drawable/button_drawable"
+            android:textColor="#FFF"
+
+            />
+        <TextView
+            android:id="@+id/txv_loginlog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:text="v.1.0.0"
+            android:textColor="#005cb2"
+            android:textSize="18dp"
+            android:gravity="end"
+            />
 
     </LinearLayout>
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#123"
-        >
-    </ListView>
+
+
 
 </LinearLayout>
