@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderActivity"
+    android:orientation="vertical"
+    android:background="@color/background_w"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/background_primer"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_stock_close"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="30sp"
+            android:onClick="close"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btn_stock_trading"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="下單"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="22sp"
+            android:onClick="clickTrading"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btn_stock_orderlsit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="委託"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btn_stock_investments"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="庫存"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+        <Button
+            android:id="@+id/btn_stock_account"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="帳戶"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="22dp"
+            android:onClick="test"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/background_w2"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="帳號名稱 委託單"
+                android:textSize="30sp"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="更新時間: 07-22 15:02"
+                android:textSize="16dp"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:layout_marginHorizontal="10dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/background_w"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/background_primer"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="狀態"
+                    android:textSize="23sp"
+                    android:textColor="@color/text_2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="名稱"
+                    android:textSize="23sp"
+                    android:textColor="@color/text_2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="委價/均價"
+                    android:textSize="23sp"
+                    android:textColor="@color/text_2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="數量"
+                    android:textSize="23sp"
+                    android:textColor="@color/text_2"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lis_orderList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+            <LinearLayout
+                android:id="@+id/llo_orderOrderList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+
+
+
+
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="70dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingBottom="1dp"-->
+<!--                    >-->
+
+<!--                    <Button-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="刪單"-->
+<!--                        android:textSize="23sp"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@color/background_d"-->
+<!--                        android:layout_marginHorizontal="0.5dp"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="台積電"-->
+<!--                        android:textSize="23sp"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@color/background_d"-->
+<!--                        android:layout_marginHorizontal="0.5dp"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="5000/5000"-->
+<!--                        android:textSize="23sp"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@color/background_d"-->
+<!--                        android:layout_marginHorizontal="0.5dp"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:text="1000"-->
+<!--                        android:textSize="23sp"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:background="@color/background_d"-->
+<!--                        android:layout_marginHorizontal="0.5dp"-->
+<!--                        />-->
+
+<!--                </LinearLayout>-->
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
