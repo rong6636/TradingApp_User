@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.TokenWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -40,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
     private  static final int TRANSFER_CODE_HOMEPAGE = 2;
     private EditText edt_singin_inputuser, edt_singin_inputpw ;
     private TextView txv_loginlog;
+    private Button btn_MianLogin;
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initalization();
 
     }
@@ -52,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         edt_singin_inputuser = findViewById(R.id.edt_singin_inputuser);
         edt_singin_inputpw = findViewById(R.id.edt_singin_inputpw);
         txv_loginlog = findViewById(R.id.txv_loginlog);
+        pref = getSharedPreferences("user_password", MODE_PRIVATE);
+        btn_MianLogin = findViewById(R.id.btn_MianLogin);
+        takeUserAndPassword();
     }
 
     public void signup(View view) {
@@ -74,15 +83,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
+        btn_MianLogin.setEnabled(false);
         String u = edt_singin_inputuser.getText().toString();
         String p = edt_singin_inputpw.getText().toString();
 
         if (u.length()>0 && p.length()>0){
+            txv_loginlog.setText("與伺服器連線中...");
             connectRelitLogin(u, p);
         }
         else{
             txv_loginlog.setText("輸入帳號密碼!");
         }
+        btn_MianLogin.setEnabled(true);
 
     }
 
@@ -103,29 +115,67 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 // 連線成功
-                String result = response.body().string();
-                if(result.equals("Ok!")){
-                    txv_loginlog.setText("OK");
-                    openHomePage(user, password);
-                }
-                else{
-                    txv_loginlog.setText(result);
-                }
+                String result = response.body().string().replace("<", "(").replace(">", ")");;
+                   try {
+                       if(result.equals("Ok!")){
+                           txv_loginlog.setText("OK");
+                           openHomePage(user, password);
+                       }
+                       else if(result.indexOf("Hmmmm.... We Couldn")>0){
+                           txv_loginlog.setText("無法與伺服器連線!");
+                       }
+                       else{
+                           txv_loginlog.setText(result);
+                       }
+                   } catch (Exception e) {
+                       txv_loginlog.setText("ERROR _MainActivity");
+                   }
             }
 
             @Override
             public void onFailure(Call call, IOException e) {
-                // 連線失敗
-                Log.d("HKT", e.toString());
-
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txv_loginlog.setText("與伺服器連線失敗，請檢查網路狀態\n若手機網路沒問題，請稍等片刻");
+                    }
+                });
             }
         });
     }
+
     public void openHomePage(String user, String password) {
         Intent intenthome = new Intent(MainActivity.this, HomePage.class);
         intenthome.putExtra("user", user);
         intenthome.putExtra("password", password);
-        startActivityForResult(intenthome, REQUEST_CODE_SIGNUP);
+        startActivity(intenthome);
         finish();
+    }
+
+    public void forgetPassword(View view) {
+        takeUserAndPassword();
+    }
+
+    public void takeUserAndPassword() {
+        String user = getSharedPreferences("user_password", MODE_PRIVATE)
+                .getString("user", "");
+        String password = getSharedPreferences("user_password", MODE_PRIVATE)
+                .getString("password", "");
+        edt_singin_inputuser.setText(user);
+        edt_singin_inputpw.setText(password);
+    }
+
+    public void rememberPassword(View view) {
+        String user = edt_singin_inputuser.getText().toString();
+        String password = edt_singin_inputpw.getText().toString();
+        if (user.equals("") || password.equals("")){
+            txv_loginlog.setText("user password 未輸入");
+        }
+        else {
+            pref.edit()
+                    .putString("user", edt_singin_inputuser.getText().toString())
+                    .putString("password", edt_singin_inputpw.getText().toString())
+                    .commit();
+        }
     }
 }

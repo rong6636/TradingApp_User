@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#63ccff"
+    android:background="@color/background_w"
     tools:context=".HomePage">
 
     <RelativeLayout
@@ -16,6 +16,7 @@
         >
 
         <TextView
+            android:id="@+id/txv_accountName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="帳號名稱"
@@ -60,6 +61,7 @@
                 android:text="證"
                 android:textSize="50dp"
                 android:textColor="#2196f3"
+                android:onClick="clickTradingStock"
                 />
             <Button
                 android:layout_width="0dp"
@@ -68,6 +70,7 @@
                 android:text="期"
                 android:textSize="50dp"
                 android:textColor="#2196f3"
+                android:onClick="clickTradingFutures"
                 />
             <Button
                 android:layout_width="0dp"
@@ -76,6 +79,7 @@
                 android:text="委"
                 android:textSize="50dp"
                 android:textColor="#2196f3"
+                android:onClick="clickOrder"
                 />
             <Button
                 android:layout_width="0dp"
@@ -123,6 +127,7 @@
                 android:text="帳"
                 android:textSize="50dp"
                 android:textColor="#2196f3"
+                android:onClick="clickAccount"
                 />
         </LinearLayout>
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#1d2333"
+    android:background="@color/background_primer"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -90,6 +90,7 @@
                 android:textSize="20dp"
                 android:background="#0000"
                 android:textColor="#FFF"
+                android:onClick="forgetPassword"
                 />
             <Button
                 android:layout_width="0dp"
@@ -99,10 +100,12 @@
                 android:textSize="20dp"
                 android:background="#0000"
                 android:textColor="#FFF"
+                android:onClick="rememberPassword"
             />
 
         </LinearLayout>
         <Button
+            android:id="@+id/btn_MianLogin"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:text="登入"

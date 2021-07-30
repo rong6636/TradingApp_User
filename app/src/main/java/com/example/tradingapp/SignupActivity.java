@@ -96,7 +96,8 @@ public class SignupActivity extends AppCompatActivity {
         }
         else{
             txv_signuplog.setText("與伺服器完成確認中...");
-            connect_replit();
+            connect_replitThread thread = new connect_replitThread();
+            thread.start();
         }
 
         btn_signuptoserver.setEnabled(true);
@@ -119,27 +120,31 @@ public class SignupActivity extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                Log.d("zha","in");
                 // 連線成功
                 String result = response.body().string();
                 if (result.equals("Create Finish")){
+                    Log.d("zha","in1");
                     txv_signuplog.setText(result);
                     RESULT_USER = user;
                     RESULT_PW = password;
                     close();
                 }
                 else if (result.equals("帳號已存在!")){
+                    Log.d("zha","in2");
                     txv_signuplog.setText(result);
                     RESULT_USER = user;
                     RESULT_PW = "";
                     close();
                 }
                 else{
-                    txv_signuplog.setText(result);
+                    txv_signuplog.setText("與伺服器連線失敗!");
                 }
             }
 
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.d("C","failed");
                 // 連線失敗
                 Log.d("HKT", e.toString());
 
@@ -150,9 +155,18 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
+
+    class connect_replitThread extends Thread{
+        @Override
+        public void run() {
+            connect_replit();
+        }
+    }
+
     public void close(View view) {
         close();
     }
+
     public void close() {
         Intent intent = getIntent();
         intent.putExtra("user", RESULT_USER);

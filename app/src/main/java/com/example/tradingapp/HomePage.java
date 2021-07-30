@@ -23,7 +23,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -41,12 +45,11 @@ public class HomePage extends AppCompatActivity {
     private Intent intent;
     private String user, password;
     private String[] log_httpCllient;
-    private TextView txv_bottomLog;
+    private TextView txv_bottomLog, txv_accountName;
     private TextView[] txv_Home_Main_Price;
     private TextView[] txv_Home_Main_Change;
     private int[] txv_Home_Main_Price_i;
     private int[] txv_Home_Main_Change_i;
-    private Thread UiMain;
 
     private ToggleButton btn_bottomtest;
 
@@ -57,7 +60,10 @@ public class HomePage extends AppCompatActivity {
         initialization();
 
         iniThread();
+
+        connectRelitGetAccountDetail();
     }
+
 
     private void iniThread() {
         new Thread(new Runnable() {
@@ -83,6 +89,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void initialization() {
+        txv_accountName = findViewById(R.id.txv_accountName);
         txv_bottomLog = findViewById(R.id.txv_bottomLog);
         intent = getIntent();
         user = intent.getStringExtra("user");
@@ -101,32 +108,6 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-
-    private void updateHomeMain(int i){
-        int start = log_httpCllient[i].indexOf("\"125\":");
-        start = log_httpCllient[i].indexOf(":", start)+1;
-        int end = log_httpCllient[i].indexOf(",", start);
-        float price = Float.parseFloat(log_httpCllient[i].substring(start, end));
-        txv_Home_Main_Price[i].setText(String.format("%.02f", price));
-
-        start = log_httpCllient[i].indexOf("\"185\":");
-        start = log_httpCllient[i].indexOf(":", start)+1;
-        end = log_httpCllient[i].indexOf(",", start);
-        float change = Float.parseFloat(log_httpCllient[i].substring(start, end));
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (change>=0){
-                    txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_grainer);
-                }
-                else{
-                    txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_loser);
-                }
-                txv_Home_Main_Change[i].setText(String.format("%.02f", change)+"%");
-            }
-        });
-    }
 
     public void testBtn(View view) {
         for (int i = 0; i < 3; i++) {
@@ -156,31 +137,130 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    final String myResponse = response.body().string();
+                    String myResponse = response.body().string();
                     HomePage.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            int start = myResponse.indexOf("\"125\":");
-                            start = myResponse.indexOf(":", start)+1;
-                            int end = myResponse.indexOf(",", start);
-                            float price = Float.parseFloat(myResponse.substring(start, end));
-                            txv_Home_Main_Price[i].setText(String.format("%.02f", price));
+//                            昨收 129  當盤漲幅 185
+                            try {
+                                int start = myResponse.indexOf("\"125\":");
+                                start = myResponse.indexOf(":", start) + 1;
+                                int end = myResponse.indexOf(",", start);
+                                float price = Float.parseFloat(myResponse.substring(start, end));
 
-                            start = myResponse.indexOf("\"185\":");
-                            start = myResponse.indexOf(":", start)+1;
-                            end = myResponse.indexOf(",", start);
-                            float change = Float.parseFloat(myResponse.substring(start, end));
-                            if (change>=0){
-                                txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_grainer);
+
+                                start = myResponse.indexOf("\"129\":");
+                                start = myResponse.indexOf(":", start) + 1;
+                                end = myResponse.indexOf(",", start);
+
+                                float yclose = Float.parseFloat(myResponse.substring(start, end));
+                                float change = (price - yclose) / yclose * 100;
+                                if (price == 0){
+                                    price = yclose;
+                                    change = 0;
+                                }
+                                txv_Home_Main_Price[i].setText(String.format("%.02f", price));
+                                txv_Home_Main_Change[i].setText(String.format("%.02f", change) + "%");
+                                if (change >= 0) {
+                                    txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_grainer);
+                                } else {
+                                    txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_loser);
+                                }
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
                             }
-                            else{
-                                txv_Home_Main_Change[i].setBackgroundResource(R.drawable.background_loser);
-                            }
-                            txv_Home_Main_Change[i].setText(String.format("%.02f", change)+"%");
-                            txv_bottomLog.setText(""+i);
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public void clickTradingStock(View view) {
+        Intent intent = new Intent(HomePage.this, StockActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    public void clickOrder(View view) {
+        Intent intent = new Intent(HomePage.this, OrderActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+
+    }
+
+    public void clickTradingFutures(View view) {
+        Intent intent = new Intent(HomePage.this, TradingFuturesActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+
+
+    }
+
+    public void clickAccount(View view) {
+        Intent intent = new Intent(HomePage.this, AccountActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivityForResult(intent, 8);
+    }
+
+    @Override
+    protected void  onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode,data);
+        if (requestCode == 8){
+            if (data != null && data.getStringExtra("logout").equals("logout")) {
+                Intent intent = new Intent(HomePage.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+
+    public void connectRelitGetAccountDetail() {
+        Log.d("zha","connectRelitGetAccountDetail");
+        String url_replit = "https://tradingappserver.masterrongwu.repl.co/get_account_detail";
+        url_replit+="?&user="+user+"&password="+password;
+        // 建立 OkHttpClient
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        // 建立 Request，設定連線資訊
+        Request request = new Request.Builder()
+                .url(url_replit)
+                .build();
+        // 建立 Call
+        Call call = client.newCall(request);
+
+        // 執行 Call 連線
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("zha", myResponse);
+                    HomePage.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject data = new JSONObject(myResponse);
+                                String Name = data.getString("Name");
+                                String SigninTimes = data.getString("SigninTimes");
+                                String lastSinginTime = data.getString("lastSinginTime");
+
+                                txv_accountName.setText(Name);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d("zha", "failed myResponse");
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                txv_accountName.setText("與伺服器連線失敗，若手機網路沒問題，請稍等片刻");
             }
         });
     }
