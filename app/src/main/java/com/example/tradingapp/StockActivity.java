@@ -10,10 +10,14 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +52,7 @@ public class StockActivity extends AppCompatActivity {
     Boolean FLAG_SEARCH_STOCK_PERMISSION = true;
 
     String orderStock = "tse_2330", USER, PASSWORD, orderName = "台積電";
-    float orderPrice = 0;
+    float orderPrice = 0, downX,downY,upX,upY;
     int orderLot = 0;
 
 
@@ -62,6 +66,43 @@ public class StockActivity extends AppCompatActivity {
 
         searchStockThread();
     }
+
+    public boolean onTouchEvent(MotionEvent event) {
+
+        float X = event.getX(); // 觸控的 X 軸位置
+        float Y = event.getY(); // 觸控的 Y 軸位置
+
+        switch (event.getAction()) { // 判斷觸控的動作
+
+            case MotionEvent.ACTION_DOWN: // 按下
+                downX = event.getX();
+                downY = event.getY();
+
+                return true;
+            case MotionEvent.ACTION_MOVE: // 拖曳
+
+                return true;
+            case MotionEvent.ACTION_UP: // 放開
+                Log.d("onTouchEvent-ACTION_UP","UP");
+                upX = event.getX();
+                upY = event.getY();
+                float x=Math.abs(upX-downX);
+                float y=Math.abs(upY-downY);
+                double z=Math.sqrt(x*x+y*y);
+                int jiaodu=Math.round((float)(Math.asin(y/z)/Math.PI*180));//角度
+
+                if (upY < downY && jiaodu>45) {//上
+                    Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:上");
+                }else if(upY > downY && jiaodu>45) {//下
+                    Log.d("onTouchEvent-ACTION_UP","角度:"+jiaodu+", 動作:下");
+                }
+                return true;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+
 
     private void initIntent() {
         Intent intent = getIntent();
@@ -170,6 +211,7 @@ public class StockActivity extends AppCompatActivity {
                                     }
                                     else {
                                         JSONObject item = data.getJSONArray("msgArray").getJSONObject(0);
+                                        Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
 
                                         String n = item.getString("n");
                                         String nf = item.getString("nf");
@@ -189,10 +231,32 @@ public class StockActivity extends AppCompatActivity {
 
                                         int tatalBidLot = 0, tatalAskLot = 0;
                                         for (int i = 0; i < 5; i++) {
-                                            txv_stock_bidprice[i].setText(String.format("%.02f", Float.valueOf(bestBidP[i])));
-                                            txv_stock_bidlot[i].setText(bestBidL[i]);
-                                            txv_stock_askprice[i].setText(String.format("%.02f", Float.valueOf(bestAskP[i])));
-                                            txv_stock_asklot[i].setText(bestAskL[i]);
+                                            String bp = String.format("%.02f", Float.valueOf(bestBidP[i]));
+                                            String ap = String.format("%.02f", Float.valueOf(bestAskP[i]));
+                                            String bl = bestBidL[i];
+                                            String al = bestAskL[i];
+                                            txv_stock_bidprice[i].setText(bp);
+                                            txv_stock_bidlot[i].setText(bl);
+                                            txv_stock_askprice[i].setText(ap);
+                                            txv_stock_asklot[i].setText(al);
+
+
+                                            if (!txv_stock_bidprice[i].getText().toString().equals(bp)){
+                                                txv_stock_bidprice[i].startAnimation(am_renew);
+                                                txv_stock_bidlot[i].startAnimation(am_renew);
+                                            }
+                                            if (!txv_stock_askprice[i].getText().toString().equals(ap)){
+                                                txv_stock_askprice[i].startAnimation(am_renew);
+                                                txv_stock_asklot[i].startAnimation(am_renew);
+                                            }
+                                            if (!txv_stock_bidlot[i].getText().toString().equals(bl)){
+                                                txv_stock_bidlot[i].startAnimation(am_renew);
+                                            }
+                                            if (!txv_stock_asklot[i].getText().toString().equals(al)){
+                                                txv_stock_asklot[i].startAnimation(am_renew);
+                                            }
+
+
                                             tatalBidLot += Integer.valueOf(bestBidL[i]);
                                             tatalAskLot += Integer.valueOf(bestAskL[i]);
                                         }
@@ -249,15 +313,25 @@ public class StockActivity extends AppCompatActivity {
         });
     }
 
-    private void renewUiTitleText(String type, String name, String price, String change, String time){
+    private void renewUiTitleText(String ntype, String nname, String nprice, String nchange, String ntime){
         StockActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                txv_stock_titleType.setText(type);
-                txv_stock_titleName.setText(name);
-                txv_stock_titlePrice.setText(price);
-                txv_stock_titleChange.setText(change);
-                txv_stock_renewTime.setText("lastRenewTime: "+time);
+                Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
+                txv_stock_titleType.setText(ntype);
+                txv_stock_titleName.setText(nname);
+                txv_stock_titlePrice.setText(nprice);
+                txv_stock_titleChange.setText(nchange);
+                txv_stock_renewTime.setText("lastRenewTime: "+ntime);
+                if (!txv_stock_titlePrice.getText().toString().equals(nprice)){
+                    txv_stock_titlePrice.startAnimation(am_renew);
+                }
+                if (!txv_stock_titleChange.getText().toString().equals(nchange)){
+                    txv_stock_titleChange.startAnimation(am_renew);
+                }
+                if (!txv_stock_renewTime.getText().toString().equals(ntime)){
+                    txv_stock_renewTime.startAnimation(am_renew);
+                }
             }
         });
     }
@@ -317,6 +391,88 @@ public class StockActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
+    private void connectSeverTradingStock(String orderType) {
+        OkHttpClient client = new OkHttpClient();
+        String parameter = "user=" + USER + "&password=" + PASSWORD + "&type=" + orderType + "&market=twStocks" + "&ticker=" + orderStock + "&price=" + orderPrice + "&lot=" + orderLot + "&time=" + 2118 + "&name=" + orderName;
+        String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?" + parameter;
+        Log.d("zha", url);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("zha", "failed onFailure");
+                e.printStackTrace();
+                StockActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(StockActivity.this)
+                                .setTitle("與伺服器連線錯誤")
+                                .setMessage("無法連線至伺服器，請檢查網路狀況，若網路檢查正常，請稍後操作。")
+                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("zha", myResponse);
+                    StockActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String content;
+                            if (myResponse.equals("密碼錯誤"))
+                                content = "密碼錯誤";
+                            else if (myResponse.equals("使用者不存在"))
+                                content = "使用者不存在";
+                            else if (myResponse.indexOf("暫時的委託單號為：") >= 0) {
+                                content = "因交易繁忙，無法瞬時成立\n\n若委託單成立，可以於委託查看到。";
+                            } else if (myResponse.indexOf(USER) >= 0) {
+                                content = "委託單號：" + myResponse + "\n下單成功，請到委託查看。";
+                            } else if (myResponse.indexOf("不在委託時間") >= 0) {
+                                content = "不在委託時間。";
+                            } else {
+                                content = "出現意外錯誤!";
+                            }
+                            new AlertDialog.Builder(StockActivity.this)
+                                    .setTitle(myResponse)
+                                    .setMessage(content)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).show();
+
+                        }
+                    });
+                } else {
+                    StockActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(StockActivity.this)
+                                    .setTitle("伺服器連線錯誤")
+                                    .setMessage("無法與伺服器建立連線! 目前伺服器離線中。\n若網路檢查正常，請稍後操作。")
+                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 
     public void test(View view) {
 
@@ -478,92 +634,13 @@ public class StockActivity extends AppCompatActivity {
         }
 
     }
-
-    private void connectSeverTradingStock(String orderType) {
-        OkHttpClient client = new OkHttpClient();
-        String parameter = "user="+USER+"&password="+PASSWORD+"&type="+orderType+"&market=twStocks"+"&ticker="+orderStock+"&price="+orderPrice+"&lot="+orderLot+"&time="+2118+"&name="+orderName;
-        String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?"+parameter;
-        Log.d("zha", url);
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("zha", "failed onFailure");
-                e.printStackTrace();
-                StockActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(StockActivity.this)
-                                .setTitle("與伺服器連線錯誤")
-                                .setMessage("無法連線至伺服器，請檢查網路狀況，若網路檢查正常，請稍後操作。")
-                                .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) { }
-                                }).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
-                    Log.d("zha",myResponse);
-                    StockActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String content;
-                            if (myResponse.equals("密碼錯誤"))
-                                content="密碼錯誤";
-                            else if (myResponse.equals("使用者不存在"))
-                                content="使用者不存在";
-                            else if(myResponse.indexOf("暫時的委託單序號為：")>=0){
-                                content = "因交易繁忙，無法瞬時成立\n\n若委託單成立，可以於委託查看到。";
-                            }
-                            else if(myResponse.indexOf(USER)>=0){
-                                content = "委託單號："+myResponse+"\n下單成功，請到委託查看。";
-                            }
-                            else {
-                                content = "出現意外錯誤!";
-                            }
-                            new AlertDialog.Builder(StockActivity.this)
-                                    .setTitle(myResponse)
-                                    .setMessage(content)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) { }
-                                    }).show();
-
-                        }
-                    });
-                }
-                else{
-                    StockActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            new AlertDialog.Builder(StockActivity.this)
-                                    .setTitle("伺服器連線錯誤")
-                                    .setMessage("無法與伺服器建立連線! 目前伺服器離線中。\n若網路檢查正常，請稍後操作。")
-                                    .setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) { }
-                                    }).show();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
     public void clickOrder(View view) {
         Intent intent = new Intent(StockActivity.this, OrderActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
         intent.putExtra("from", "StockActivity");
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 2);
         close(view);
+
     }
 }

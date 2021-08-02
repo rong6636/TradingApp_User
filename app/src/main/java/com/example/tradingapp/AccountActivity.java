@@ -52,6 +52,15 @@ public class AccountActivity extends AppCompatActivity {
         txv_log = findViewById(R.id.txv_log);
     }
 
+    private void initIntent() {
+        Intent intent = getIntent();
+        user = intent.getStringExtra("user");
+        password = intent.getStringExtra("password");
+        activityFrom = intent.getStringExtra("from");
+        if (activityFrom == null){
+            activityFrom = "";
+        }
+    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -169,7 +178,7 @@ public class AccountActivity extends AppCompatActivity {
                                 content="密碼錯誤";
                             else if (myResponse.equals("使用者不存在"))
                                 content="使用者不存在";
-                            else if(myResponse.indexOf("successful")>0){
+                            else if(myResponse.indexOf("Successful")>=0){
                                 content = "伺服器確認完成，名稱更改成功! 若想看到新名稱請重新登入。";
                             }
                             else {
@@ -241,15 +250,6 @@ public class AccountActivity extends AppCompatActivity {
         finish();
     }
 
-    private void initIntent() {
-        Intent intent = getIntent();
-        user = intent.getStringExtra("user");
-        password = intent.getStringExtra("password");
-        activityFrom = intent.getStringExtra("from");
-        if (activityFrom == null){
-            activityFrom = "";
-        }
-    }
     public void clickLogout(View view) {
         Intent intent = getIntent();
         intent.putExtra("user", user);

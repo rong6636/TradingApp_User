@@ -16,74 +16,73 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/btn_stock_close"
+            android:id="@+id/btn_futures_close"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:text="X"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="30sp"
+            android:textSize="@dimen/sp_30"
             android:onClick="close"
             android:gravity="center"
             android:layout_gravity="center"
             />
 
         <Button
-            android:id="@+id/btn_stock_trading"
+            android:id="@+id/btn_futures_trading"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:text="下單"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="22sp"
+            android:textSize="@dimen/sp_22"
             android:gravity="center"
             android:layout_gravity="center"
             />
 
         <Button
-            android:id="@+id/btn_stock_orderlsit"
+            android:id="@+id/btn_futures_orderlsit"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:text="委託"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="22dp"
-            android:onClick="clickOrder"
+            android:textSize="@dimen/sp_22"
             android:gravity="center"
             android:layout_gravity="center"
+            android:onClick="clickOrder"
             />
 
         <Button
-            android:id="@+id/btn_stock_investments"
+            android:id="@+id/btn_futures_investments"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:text="庫存"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="22dp"
-            android:onClick="close"
+            android:textSize="@dimen/sp_22"
             android:gravity="center"
             android:layout_gravity="center"
             />
+
         <Button
-            android:id="@+id/btn_stock_account"
+            android:id="@+id/btn_futures_account"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:text="帳戶"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="22dp"
-            android:onClick="close"
+            android:textSize="@dimen/sp_22"
+            android:onClick="test"
             android:gravity="center"
             android:layout_gravity="center"
             />
 
     </LinearLayout >
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,7 +96,7 @@
             android:layout_weight="2"
             android:background="#05080c"
             android:orientation="vertical"
-            android:layout_marginBottom="0.5dp"
+            android:layout_marginBottom="@dimen/dp_0_5"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,6 +104,7 @@
                 android:layout_weight="2"
                 android:orientation="horizontal"
                 android:background="#234">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -112,14 +112,14 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:text="TWSE"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/sp_24"
                     android:textColor="#FFF"/>
 
                 <Button
                     android:id="@+id/btn_stock_changeStockType"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:textSize="25sp"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:textSize="@dimen/sp_24"
                     android:text="市"
                     android:textColor="#FFF"
                     android:gravity="center"
@@ -132,7 +132,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="2330"
-                    android:textSize="25dp"
+                    android:textSize="@dimen/dp_25"
                     android:textColor="#CCC"
                     android:background="#345"
                     android:layout_gravity="center"
@@ -142,9 +142,9 @@
 
                 <Button
                     android:id="@+id/btn_stock_searchstock"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:textSize="25sp"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
+                    android:textSize="@dimen/sp_25"
                     android:text="O"
                     android:textColor="#FFF"
                     android:gravity="center"
@@ -160,7 +160,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:orientation="horizontal"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/dp_5"
+                android:background="#888"
                 >
 
 
@@ -172,8 +173,9 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:text="市"
-                    android:textSize="25dp"
-                    android:textColor="#FFF"/>
+                    android:textSize="25sp"
+                    android:textColor="#FFF"
+                    android:background="#05080c"/>
 
                 <TextView
                     android:id="@+id/txv_stock_titleName"
@@ -182,16 +184,16 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="台積電"
-                    android:textSize="38dp"
-                    android:textColor="#FFF"/>
+                    android:text="-"
+                    android:textSize="@dimen/sp_30"
+                    android:textColor="#FFF"
+                    android:background="#05080c"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_margin="10dp"
                     >
 
                     <TextView
@@ -201,19 +203,22 @@
                         android:layout_height="0dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:text="679.00"
-                        android:textSize="35dp"
-                        android:textColor="#FFF"/>
+                        android:text="0.00"
+                        android:singleLine="true"
+                        android:textSize="@dimen/sp_34"
+                        android:textColor="#FFF"
+                        android:background="#05080c"/>
 
                     <TextView
                         android:id="@+id/txv_stock_titleChange"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:text="▼▲65.00 (-1.02%)"
-                        android:textSize="15dp"
-                        android:textColor="#FFF"/>
+                        android:text="▼▲0.00 (-0.00%)"
+                        android:textSize="@dimen/sp_15"
+                        android:textColor="#FFF"
+                        android:background="#05080c"/>
 
                 </LinearLayout>
 
@@ -233,8 +238,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp">
+                android:paddingHorizontal="@dimen/dp_15"
+                >
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -248,13 +253,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="8dp"
+                        android:paddingHorizontal="@dimen/dp_8"
                         >
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="委買"
-                            android:textSize="24dp"
+                            android:textSize="@dimen/sp_24"
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
@@ -262,8 +267,8 @@
                             android:id="@+id/txv_stock_total_bid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="9453"
-                            android:textSize="18dp"
+                            android:text="0"
+                            android:textSize="@dimen/sp_18"
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
@@ -272,83 +277,88 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
+                        android:gravity="center"
                         >
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_bidlot_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="9745"
-                                android:textSize="14dp"
+                                android:layout_marginHorizontal="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
                             <TextView
                                 android:id="@+id/txv_stock_bidprcie_1"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="584.00"
-                                android:textSize="14dp"
+                                android:layout_height="wrap_content"
+                                android:text="100.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#01937C"
                                 android:gravity="center"
                                 />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:orientation="horizontal"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:gravity="right"
-                            >
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/txv_stock_bidlot_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="9745"
-                                android:textSize="14dp"
+                                android:layout_marginHorizontal="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
-                                android:gravity="center"
-                                />
+                                android:gravity="center"/>
+
                             <TextView
                                 android:id="@+id/txv_stock_bidprcie_2"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="583.00"
-                                android:textSize="14dp"
+                                android:layout_height="wrap_content"
+                                android:text="100.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#01937C"
-                                android:gravity="center"
-                                />
+                                android:gravity="center"/>
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_bidlot_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="9745"
-                                android:textSize="14dp"
+                                android:layout_marginHorizontal="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
                             <TextView
                                 android:id="@+id/txv_stock_bidprcie_3"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="582.00"
-                                android:textSize="14dp"
+                                android:layout_height="wrap_content"
+                                android:text="100.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#01937C"
                                 android:gravity="center"
                                 />
@@ -358,23 +368,24 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_bidlot_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="9745"
-                                android:textSize="14dp"
+                                android:layout_marginHorizontal="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
                             <TextView
                                 android:id="@+id/txv_stock_bidprcie_4"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="581.00"
-                                android:textSize="14dp"
+                                android:layout_height="wrap_content"
+                                android:text="100.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#01937C"
                                 android:gravity="center"
                                 />
@@ -384,23 +395,24 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_bidlot_5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="426"
-                                android:textSize="14dp"
+                                android:layout_marginHorizontal="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
                             <TextView
                                 android:id="@+id/txv_stock_bidprcie_5"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="580.00"
-                                android:textSize="14dp"
+                                android:layout_height="wrap_content"
+                                android:text="100.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#01937C"
                                 android:gravity="center"
                                 />
@@ -418,19 +430,19 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="5dp"
+                    android:paddingHorizontal="@dimen/dp_5"
                     >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="8dp"
+                        android:paddingHorizontal="@dimen/dp_8"
                         >
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="委賣"
-                            android:textSize="24dp"
+                            android:textSize="@dimen/sp_24"
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
@@ -438,8 +450,8 @@
                             android:id="@+id/txv_stock_total_ask"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="1223"
-                            android:textSize="18dp"
+                            android:text="0"
+                            android:textSize="@dimen/sp_18"
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
@@ -456,13 +468,14 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="left"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_askprcie_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="585.00"
-                                android:textSize="14dp"
+                                android:text="101.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#AA2B1D"
                                 android:gravity="center"
                                 />
@@ -470,9 +483,9 @@
                                 android:id="@+id/txv_stock_asklot_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="1314"
-                                android:textSize="14dp"
+                                android:layout_margin="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
@@ -483,13 +496,14 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="left"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_askprcie_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="586.00"
-                                android:textSize="14dp"
+                                android:text="101.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#AA2B1D"
                                 android:gravity="center"
                                 />
@@ -497,9 +511,9 @@
                                 android:id="@+id/txv_stock_asklot_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="1314"
-                                android:textSize="14dp"
+                                android:layout_margin="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
@@ -510,13 +524,14 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="left"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_askprcie_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="587.00"
-                                android:textSize="14dp"
+                                android:text="101.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#AA2B1D"
                                 android:gravity="center"
                                 />
@@ -524,9 +539,9 @@
                                 android:id="@+id/txv_stock_asklot_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="1314"
-                                android:textSize="14dp"
+                                android:layout_margin="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
@@ -537,13 +552,14 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="left"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_askprcie_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="588.00"
-                                android:textSize="14dp"
+                                android:text="101.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#AA2B1D"
                                 android:gravity="center"
                                 />
@@ -551,9 +567,9 @@
                                 android:id="@+id/txv_stock_asklot_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="1314"
-                                android:textSize="14dp"
+                                android:layout_margin="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
@@ -564,13 +580,14 @@
                             android:orientation="horizontal"
                             android:layout_height="wrap_content"
                             android:gravity="left"
+                            android:layout_weight="1"
                             >
                             <TextView
                                 android:id="@+id/txv_stock_askprcie_5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="589.00"
-                                android:textSize="14dp"
+                                android:text="101.00"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#AA2B1D"
                                 android:gravity="center"
                                 />
@@ -578,9 +595,9 @@
                                 android:id="@+id/txv_stock_asklot_5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:text="1314"
-                                android:textSize="14dp"
+                                android:layout_margin="@dimen/dp_5"
+                                android:text="1000"
+                                android:textSize="@dimen/sp_14"
                                 android:textColor="#FFF"
                                 android:gravity="center"
                                 />
@@ -601,7 +618,7 @@
 
                 android:layout_gravity="center"
                 android:text="2021-07-26 08:00:00"
-                android:textSize="12dp"
+                android:textSize="@dimen/sp_12"
                 android:textColor="#FFF"/>
 
         </LinearLayout>
@@ -613,7 +630,7 @@
             android:background="#05080c"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
+            android:paddingVertical="@dimen/dp_5"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -627,17 +644,18 @@
                     android:background="#3871"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_5">
                     >
 
                     <TextView
                         android:id="@+id/txv_stock_orderPriceSub"
-                        android:layout_width="30dp"
+                        android:layout_width="@dimen/dp_30"
                         android:layout_height="wrap_content"
                         android:text="-"
                         android:textColor="#FFF"
-                        android:textSize="25sp"
-                        android:layout_margin="5dp"
+                        android:textSize="@dimen/sp_24"
+                        android:layout_margin="@dimen/dp_5"
                         android:layout_gravity="center"
                         android:textAlignment="center"
                         android:onClick="stock_priceSub"
@@ -646,24 +664,24 @@
                     <TextView
                         android:id="@+id/txv_stock_orderPriceChoose"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="30dp"
-                        android:text="625.00"
-                        android:textColor="#FFF"
-                        android:textSize="25sp"
+                        android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="0.00"
                         android:textAlignment="center"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/sp_24"
                         android:onClick="stock_priceChoose"
-                        />
 
+                        />
                     <TextView
                         android:id="@+id/txv_stock_orderPriceAdd"
-                        android:layout_width="30dp"
+                        android:layout_width="@dimen/dp_30"
                         android:layout_height="wrap_content"
                         android:text="+"
                         android:textColor="#FFF"
-                        android:textSize="25sp"
-                        android:layout_margin="5dp"
+                        android:textSize="@dimen/sp_24"
+                        android:layout_margin="@dimen/dp_5"
                         android:layout_gravity="center"
                         android:textAlignment="center"
                         android:onClick="stock_priceAdd"
@@ -677,7 +695,7 @@
                     android:background="#3871"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginLeft="@dimen/dp_5"
                     >
 
                     <LinearLayout
@@ -690,12 +708,12 @@
 
                         <TextView
                             android:id="@+id/txv_stock_orderLotSub"
-                            android:layout_width="30dp"
+                            android:layout_width="@dimen/dp_30"
                             android:layout_height="wrap_content"
                             android:text="-"
                             android:textColor="#FFF"
-                            android:textSize="25sp"
-                            android:layout_margin="5dp"
+                            android:textSize="@dimen/sp_24"
+                            android:layout_margin="@dimen/dp_5"
                             android:layout_gravity="center"
                             android:textAlignment="center"
                             android:onClick="stock_lotSub"
@@ -705,10 +723,10 @@
                             android:id="@+id/txv_stock_orderLotChoose"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="30dp"
-                            android:text="625"
+                            android:layout_height="@dimen/dp_30"
+                            android:text="1"
                             android:textColor="#FFF"
-                            android:textSize="25sp"
+                            android:textSize="@dimen/sp_24"
                             android:layout_gravity="center"
                             android:textAlignment="center"
                             android:onClick="stock_lotSChoose"
@@ -716,11 +734,11 @@
 
                         <TextView
                             android:id="@+id/txv_stock_orderLotAdd"
-                            android:layout_width="30dp"
+                            android:layout_width="@dimen/dp_30"
                             android:layout_height="wrap_content"
                             android:text="+"
                             android:textColor="#FFF"
-                            android:textSize="25sp"
+                            android:textSize="@dimen/sp_24"
                             android:layout_margin="5dp"
                             android:layout_gravity="center"
                             android:textAlignment="center"
@@ -737,9 +755,9 @@
                 android:id="@+id/txv_stcok_showBudget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="約 TWD588,000"
+                android:text="約 TWD0"
                 android:textColor="#FFF"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp_20"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 />
@@ -753,13 +771,13 @@
                     android:id="@+id/Btn_stock_buy"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="55dp"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_5"
                     android:background="@drawable/background_grainer"
                     android:gravity="center"
                     android:layout_gravity="bottom"
-                    android:text="買進"
-                    android:textSize="43sp"
+                    android:text="買多"
+                    android:textSize="@dimen/sp_40"
                     android:onClick="buyStock"
                     />
 
@@ -767,13 +785,13 @@
                     android:id="@+id/Btn_stock_sell"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="55dp"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_5"
                     android:background="@drawable/background_loser"
                     android:gravity="center"
                     android:layout_gravity="bottom"
-                    android:text="賣出"
-                    android:textSize="43sp"
+                    android:text="賣空"
+                    android:textSize="@dimen/sp_40"
                     android:onClick="sellStock"
                     />
 
@@ -783,24 +801,5 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#1d2333"
-        android:layout_marginBottom="1dp"
-        >
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="X"
-            android:background="#1d2333"
-            android:layout_alignParentLeft="true"
-            android:textColor="#FFF"
-            android:textSize="30dp"
-            android:onClick="test"
-            android:gravity="center"
-            />
-
-    </RelativeLayout >
 
 </LinearLayout>

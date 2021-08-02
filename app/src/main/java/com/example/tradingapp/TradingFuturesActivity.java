@@ -14,6 +14,8 @@ import android.text.SpanWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -185,10 +187,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
                 TradingFuturesActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        txv_futures_titleType.setText("E");
-                        txv_futures_titleName.setText("連線失效");
-                        txv_futures_titlePrice.setText("-");
-                        txv_futures_titleChange.setText("請檢察網路狀況");
+                        renewUiTitleText("E","連線失效","-","請檢察網路狀況", "...");
                         FLAG_SEARCH_FUTURES_PERMISSION = false;
                         FLAG_TRADING_PERMISSION = false;
                     }
@@ -205,6 +204,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 int start, end;
+                                Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
 
 //                                當前成交價
                                 start = myResponse.indexOf("\"125\":");
@@ -233,8 +233,6 @@ public class TradingFuturesActivity extends AppCompatActivity {
                                     txv_futures_titleChange.setTextColor(getResources().getColor(R.color.loser_));
                                 }
                                 str_c +=String.format("%.02f", change) + "%";
-                                txv_futures_titlePrice.setText(String.format("%.02f", price));
-                                txv_futures_titleChange.setText(str_c);
 
 //                                最優買方出價-5
                                 start = myResponse.indexOf("\"109\":");
@@ -296,10 +294,30 @@ public class TradingFuturesActivity extends AppCompatActivity {
 
                                 int tatalBidLot = 0, tatalAskLot = 0;
                                 for (int i = 0; i < 5; i++) {
-                                    txv_futures_bidprice[i].setText(String.format("%.02f", Float.valueOf(bestBid+i)));
-                                    txv_futures_bidlot[i].setText(String.valueOf(bestBidLot[i]));
-                                    txv_futures_askprice[i].setText(String.format("%.02f", Float.valueOf(bestAsk-i)));
-                                    txv_futures_asklot[i].setText(String.valueOf(bestAskLot[i]));
+                                    String bp = String.format("%.02f", Float.valueOf(bestBid+i));
+                                    String ap = String.format("%.02f", Float.valueOf(bestAsk-i));
+                                    String bl = String.valueOf(bestBidLot[i]);
+                                    String al = String.valueOf(bestAskLot[i]);
+
+                                    txv_futures_bidprice[i].setText(bp);
+                                    txv_futures_askprice[i].setText(ap);
+                                    txv_futures_bidlot[i].setText(bl);
+                                    txv_futures_asklot[i].setText(al);
+
+                                    if (!txv_futures_bidprice[i].getText().toString().equals(bp)){
+                                        txv_futures_bidprice[i].startAnimation(am_renew);
+                                        txv_futures_bidlot[i].startAnimation(am_renew);
+                                    }
+                                    if (!txv_futures_askprice[i].getText().toString().equals(ap)){
+                                        txv_futures_askprice[i].startAnimation(am_renew);
+                                        txv_futures_asklot[i].startAnimation(am_renew);
+                                    }
+                                    if (!txv_futures_bidlot[i].getText().toString().equals(bl)){
+                                        txv_futures_bidlot[i].startAnimation(am_renew);
+                                    }
+                                    if (!txv_futures_asklot[i].getText().toString().equals(al)){
+                                        txv_futures_asklot[i].startAnimation(am_renew);
+                                    }
 
                                     tatalBidLot += Integer.valueOf(bestBidLot[i]);
                                     tatalAskLot += Integer.valueOf(bestAskLot[i]);
@@ -307,9 +325,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
 
                                 txv_futures_total_bid.setText(String.valueOf(tatalBidLot));
                                 txv_futures_total_ask.setText(String.valueOf(tatalAskLot));
-                                txv_futures_titleName.setText(futuresList[currentFuturesIndex]);
-                                txv_futures_renewTime.setText("lastRenewTime: "+1);
-
+                                renewUiTitleText("期", futuresList[currentFuturesIndex], String.format("%.02f", price), str_c, "1");
 //                                        下單區更新
                                 if (firstTime == 0) {
                                     orderPrice = Float.valueOf(price);
@@ -319,16 +335,12 @@ public class TradingFuturesActivity extends AppCompatActivity {
                                     FLAG_SEARCH_FUTURES_PERMISSION = true;
                                     renewMargin();
                                 }
-                                txv_futures_titleType.setText("期");
                                 FLAG_TRADING_PERMISSION = true;
 
                             } catch (NumberFormatException e) {
                                 Log.d("zha", "Failed");
                                 e.printStackTrace();
-                                txv_futures_titleType.setText("E");
-                                txv_futures_titleName.setText("意外錯誤");
-                                txv_futures_titlePrice.setText("-");
-                                txv_futures_titleChange.setText("-");
+                                renewUiTitleText("E","意外錯誤","-","-", "...");
                                 FLAG_SEARCH_FUTURES_PERMISSION = false;
                                 FLAG_TRADING_PERMISSION = false;
                             }
@@ -340,6 +352,28 @@ public class TradingFuturesActivity extends AppCompatActivity {
         });
     }
 
+    private void renewUiTitleText(String ntype, String nname, String nprice, String nchange, String ntime){
+        TradingFuturesActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
+                txv_futures_titleType.setText(ntype);
+                txv_futures_titleName.setText(nname);
+                txv_futures_titlePrice.setText(nprice);
+                txv_futures_titleChange.setText(nchange);
+                txv_futures_renewTime.setText("lastRenewTime: "+ntime);
+                if (!txv_futures_titlePrice.getText().toString().equals(nprice)){
+                    txv_futures_titlePrice.startAnimation(am_renew);
+                }
+                if (!txv_futures_titleChange.getText().toString().equals(nchange)){
+                    txv_futures_titleChange.startAnimation(am_renew);
+                }
+                if (!txv_futures_renewTime.getText().toString().equals(ntime)){
+                    txv_futures_renewTime.startAnimation(am_renew);
+                }
+            }
+        });
+    }
     public void renewMargin(){
         OkHttpClient client = new OkHttpClient();
         String url = "https://tradingAppServer.masterrongwu.repl.co/getMargin?futures="+futuresList[currentFuturesIndex];
@@ -367,7 +401,6 @@ public class TradingFuturesActivity extends AppCompatActivity {
                             futuresMargin = Integer.valueOf(myResponse);
                             txv_futures_showBudget.setText("約 TWD"+futuresMargin*orderLot);
                             Log.d("zha", "futuresMargin："+futuresMargin);
-//                            futuresMargin = Integer.valueOf(myResponse);
                         }
                     });
                 }
@@ -423,11 +456,14 @@ public class TradingFuturesActivity extends AppCompatActivity {
                                 content="密碼錯誤";
                             else if (myResponse.equals("使用者不存在"))
                                     content="使用者不存在";
-                            else if(myResponse.indexOf("暫時的委託單序號為：")>=0){
+                            else if(myResponse.indexOf("暫時的委託單號為：")>=0){
                                 content = "因交易繁忙，無法瞬時成立\n\n若委託單成立，可以於委託查看到。";
                             }
                             else if(myResponse.indexOf(user)>=0){
                                 content = "委託單號："+myResponse+"\n下單成功，請到委託查看。";
+                            }
+                            else if(myResponse.indexOf("不在委託時間")>=0){
+                                content = "不在委託時間。";
                             }
                             else {
                                 content = "出現意外錯誤!";
@@ -503,7 +539,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
     }
 
     public void futures_lotSub(View view) {
-        if (orderLot > 0){
+        if (orderLot > 1){
             orderLot-=1;
         }
         txv_futures_orderLotChoose.setText(String.format("%.00f", Float.valueOf(orderLot)));

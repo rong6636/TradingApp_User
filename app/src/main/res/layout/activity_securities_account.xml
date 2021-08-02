@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecuritiesAccountActivity"
+    android:orientation="vertical"
+    android:background="@color/background_w"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#1d2333"
+        >
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="O"
+            android:background="#1d2333"
+            android:layout_alignParentLeft="true"
+            android:textColor="#FFF"
+            android:onClick="clickClose"
+            />
+        <TextView
+            android:id="@+id/txv_accountName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="帳務資訊"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_22"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        >
+
+        <TextView
+            android:id="@+id/txv_total_funds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_13"
+            android:layout_gravity="center"
+            android:text="資金："
+            android:textSize="@dimen/sp_24"
+            android:textColor="#FFF"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_7"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="損益金額："
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/txv_totalProfit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0.00"
+                    android:gravity="left"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF"
+                    android:layout_marginBottom="@dimen/dp_1">
+                </TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="可動用金額："
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+                </TextView>
+                <TextView
+                    android:id="@+id/txv_availableMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0.00"
+                    android:gravity="left"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已實現損益："
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/txv_realizedProfit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0.00"
+                    android:gravity="left"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+                </TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未實現損益："
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/txv_unrealizedProfit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="10.00"
+                    android:gravity="left"
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="#FFF">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/dp_5"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="總報酬率："
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/sp_17"
+                            android:textColor="#FFF">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/txv_ROI"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0.00%"
+                            android:gravity="right"
+                            android:textSize="@dimen/sp_17"
+                            android:textColor="#FFF">
+                        </TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="庫存報酬率："
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/sp_17"
+                            android:textColor="#FFF">
+
+                        </TextView>
+                        <TextView
+                            android:id="@+id/txv_stockROI"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="0.00%"
+                            android:gravity="right"
+                            android:textSize="@dimen/sp_17"
+                            android:textColor="#FFF">
+                        </TextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        >
+
+        <TextView
+            android:id="@+id/qwe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_15"
+            android:layout_gravity="center"
+            android:text="股票證卷："
+            android:textSize="@dimen/sp_25"
+            android:textColor="#FFF"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        >
+
+        <TextView
+            android:id="@+id/qw2e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_15"
+            android:layout_gravity="center"
+            android:text="期貨商品："
+            android:textSize="@dimen/sp_25"
+            android:textColor="#FFF"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

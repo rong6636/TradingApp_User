@@ -115,13 +115,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 // 連線成功
-                String result = response.body().string().replace("<", "(").replace(">", ")");;
+                String result = response.body().string();
                    try {
                        if(result.equals("Ok!")){
                            txv_loginlog.setText("OK");
                            openHomePage(user, password);
                        }
-                       else if(result.indexOf("Hmmmm.... We Couldn")>0){
+                       else if(result.indexOf("Hmmmm....")>0){
                            txv_loginlog.setText("無法與伺服器連線!");
                        }
                        else{

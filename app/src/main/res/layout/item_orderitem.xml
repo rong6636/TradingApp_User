@@ -10,21 +10,7 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:text="刪"
-        android:textSize="23sp"
-        android:textColor="#FFF"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@color/background_d"
-        android:layout_marginHorizontal="0.5dp"
-        />
-
-    <TextView
-        android:id="@+id/txv_orderItem_name"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"
-        android:text="台積電"
-        android:textSize="23sp"
+        android:textSize="@dimen/sp_23"
         android:textColor="#FFF"
         android:layout_gravity="center"
         android:gravity="center"
@@ -42,11 +28,43 @@
         android:gravity="center"
         >
         <TextView
+            android:id="@+id/txv_orderItem_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="台積電"
+            android:textSize="@dimen/sp_23"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/txv_orderItem_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="@dimen/sp_23"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        android:layout_marginHorizontal="0.5dp"
+        android:gravity="center"
+        >
+        <TextView
             android:id="@+id/txv_orderItem_orderPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5000"
-            android:textSize="23sp"
+            android:textSize="@dimen/sp_23"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -56,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5000"
-            android:textSize="23sp"
+            android:textSize="@dimen/sp_23"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -80,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="1000"
-            android:textSize="23sp"
+            android:textSize="@dimen/sp_23"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"

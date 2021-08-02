@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="帳號名稱"
             android:textColor="#FFF"
-            android:textSize="22dp"
+            android:textSize="@dimen/sp_22"
             android:gravity="center"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -35,6 +35,7 @@
             android:background="#1d2333"
             android:layout_alignParentRight="true"
             android:textColor="#FFF"
+            android:onClick="clickAccount"
             />
 
     </RelativeLayout >
@@ -46,20 +47,20 @@
         android:background="#05080c"
         android:orientation="vertical"
         android:layout_marginBottom="1.8dp"
-        android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="證"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 android:onClick="clickTradingStock"
                 />
@@ -68,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="期"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 android:onClick="clickTradingFutures"
                 />
@@ -77,7 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="委"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 android:onClick="clickOrder"
                 />
@@ -86,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="細"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 />
         </LinearLayout>
@@ -95,13 +96,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="看"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 />
             <Button
@@ -109,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="熱"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 />
             <Button
@@ -117,7 +120,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="庫"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 />
             <Button
@@ -125,9 +128,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="帳"
-                android:textSize="50dp"
+                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
-                android:onClick="clickAccount"
+                android:onClick="clickSeculityAccount"
                 />
         </LinearLayout>
 
@@ -145,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="1.8dp"
+            android:layout_marginBottom="1.8sp"
             android:orientation="horizontal"
             android:background="#123"
             >
@@ -162,15 +165,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="加權指數"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#2196f3"
                     />
                 <TextView
                     android:id="@+id/txv_Home_Main1_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99999.00"
-                    android:textSize="18dp"
+                    android:text="0.00"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#FFF"
                     />
                 <TextView
@@ -178,7 +181,7 @@
                     android:layout_width="65dp"
                     android:layout_height="25dp"
                     android:text="+10.00%"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/sp_15"
                     android:textColor="#FFF"
                     android:textStyle="bold"
                     android:gravity="center|right"
@@ -198,15 +201,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="上櫃指數"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#2196f3"
                     />
                 <TextView
                     android:id="@+id/txv_Home_Main2_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99999.00"
-                    android:textSize="18dp"
+                    android:text="0.00"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#FFF"
                     />
                 <TextView
@@ -214,7 +217,7 @@
                     android:layout_width="65dp"
                     android:layout_height="25dp"
                     android:text="+10.00%"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/sp_15"
                     android:textColor="#FFF"
                     android:textStyle="bold"
                     android:gravity="center|right"
@@ -234,15 +237,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="台指近一"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#2196f3"
                     />
                 <TextView
                     android:id="@+id/txv_Home_Main3_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99999.00"
-                    android:textSize="18dp"
+                    android:text="0.00"
+                    android:textSize="@dimen/sp_18"
                     android:textColor="#FFF"
                     />
                 <TextView
@@ -250,7 +253,7 @@
                     android:layout_width="65dp"
                     android:layout_height="25dp"
                     android:text="+10.00%"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/sp_15"
                     android:textColor="#FFF"
                     android:textStyle="bold"
                     android:gravity="center|right"
@@ -277,7 +280,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Log"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
 

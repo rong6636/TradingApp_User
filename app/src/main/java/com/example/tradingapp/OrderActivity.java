@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -39,12 +41,12 @@ import okhttp3.Response;
 public class OrderActivity extends AppCompatActivity {
     boolean FLAG_GETORDER_PERMISSION = true;
 
-
     private SimpleAdapter adapter;
     private ListView lis_orderList;
+    private TextView txv_orderRenewTime;
     private LinkedList<HashMap<String, String>> datalist;
-    private String[] from = {"state", "name", "orderPrice", "finalPrice", "lots", "id", "type"};
-    private int[] to = {R.id.btn_orderItem_del, R.id.txv_orderItem_name, R.id.txv_orderItem_orderPrice, R.id.txv_orderItem_finalPrice, R.id.txv_orderItem_lot, 945300, 945300};
+    private String[] from = {"state", "name", "type", "orderPrice", "finalPrice", "lots", "id", "type"};
+    private int[] to = {R.id.btn_orderItem_del, R.id.txv_orderItem_name, R.id.txv_orderItem_type, R.id.txv_orderItem_orderPrice, R.id.txv_orderItem_finalPrice, R.id.txv_orderItem_lot, 945300, 945300};
 
     private String USER, PASSWORD, activityFrom;
 
@@ -72,6 +74,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void initListView(){
+        Log.d("zha", "a");
         datalist = new LinkedList<>();
         adapter = new SimpleAdapter(this, datalist, R.layout.item_orderitem, from, to);
         lis_orderList.setAdapter(adapter);
@@ -82,19 +85,20 @@ public class OrderActivity extends AppCompatActivity {
 //                Toast.makeText(OrderActivity.this, "你點擊了:" + txv.getText(), Toast.LENGTH_SHORT).show();
                 Log.d("zha", datalist.get((int)id).toString());
                 HashMap<String, String> data = datalist.get((int)id);
-                if (!data.get("state").equals("刪")){
+                if (data.get("state").equals("委")){
                     showDelOrderSure(data);
                 }
-                else{
+                else if (!data.get("state").equals("刪")){
                     showOrderDetails(data);
                 }
             }
         });
+        txv_orderRenewTime = findViewById(R.id.txv_orderRenewTime);
 
     }
 
     private void showDelOrderSure(HashMap<String, String> data){
-        String content = "委託單號：" + data.get("id") + "\n" + "委託動作：" +data.get("type")  + "當前狀態：" +data.get("state") + "\n" + "股票名稱："+data.get("name")+"\n"
+        String content = "委託單號：" + data.get("id") + "\n" + "委託動作：" +data.get("type")  + "\n當前狀態：" +data.get("state") + "\n" + "股票名稱："+data.get("name")+"\n"
                 + "委託價：" + data.get("price") + "\n" + "委託量：" +data.get("lots") + "\n" +"如要刪單，請按確認。";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("動作：刪單")
@@ -234,8 +238,14 @@ public class OrderActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    Log.d("zha", myResponse);
-                    connectSeverGetOrder();
+
+                    if (myResponse.indexOf("忙碌")>=0){
+                        Log.d("zha", "del 忙碌中");
+                    }
+                    if(myResponse.equals(orderId)) {
+                        Log.d("zha", myResponse);
+                        connectSeverGetOrder();
+                    }
                 }
             }
         });
@@ -246,14 +256,18 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void addElementToOrderList(JSONObject order, String id) throws JSONException {
+        Calendar mCal = Calendar.getInstance();
+        CharSequence s = DateFormat.format("MM-dd kk:mm", mCal.getTime());    // kk:24小時制, hh:12小時制
+        txv_orderRenewTime.setText("更新時間："+s);
         HashMap<String, String> h_order = new HashMap<>();
 
         h_order.put(from[0], order.getString("state"));
         h_order.put(from[1], order.getString("name"));
-        h_order.put(from[2], String.valueOf(order.getDouble("price")));
-        h_order.put(from[4], String.valueOf(order.getInt("lots")));
-        h_order.put(from[5], id);
-        h_order.put(from[6], order.getString("type"));
+        h_order.put(from[2], order.getString("type"));
+        h_order.put(from[3], String.valueOf(order.getDouble("price")));
+        h_order.put(from[5], String.valueOf(order.getInt("lots")));
+        h_order.put(from[6], id);
+        h_order.put(from[7], order.getString("type"));
 
         int m = 0, v = 0;
         JSONObject pv = order.getJSONObject("p_v");
@@ -268,7 +282,7 @@ public class OrderActivity extends AppCompatActivity {
         else{
             v = 1;
         }
-        h_order.put(from[3], String.valueOf((m/v)));
+        h_order.put(from[4], String.valueOf((m/v)));
 
         datalist.add(h_order);
         Log.d("zha", h_order.toString());

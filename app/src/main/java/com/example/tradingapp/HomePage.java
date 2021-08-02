@@ -176,36 +176,6 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    public void clickTradingStock(View view) {
-        Intent intent = new Intent(HomePage.this, StockActivity.class);
-        intent.putExtra("user", user);
-        intent.putExtra("password", password);
-        startActivity(intent);
-    }
-
-    public void clickOrder(View view) {
-        Intent intent = new Intent(HomePage.this, OrderActivity.class);
-        intent.putExtra("user", user);
-        intent.putExtra("password", password);
-        startActivity(intent);
-
-    }
-
-    public void clickTradingFutures(View view) {
-        Intent intent = new Intent(HomePage.this, TradingFuturesActivity.class);
-        intent.putExtra("user", user);
-        intent.putExtra("password", password);
-        startActivity(intent);
-
-
-    }
-
-    public void clickAccount(View view) {
-        Intent intent = new Intent(HomePage.this, AccountActivity.class);
-        intent.putExtra("user", user);
-        intent.putExtra("password", password);
-        startActivityForResult(intent, 8);
-    }
 
     @Override
     protected void  onActivityResult(int requestCode, int resultCode, Intent data){
@@ -263,5 +233,47 @@ public class HomePage extends AppCompatActivity {
                 txv_accountName.setText("與伺服器連線失敗，若手機網路沒問題，請稍等片刻");
             }
         });
+    }
+
+
+
+    public void clickTradingStock(View view) {
+        Intent intent = new Intent(HomePage.this, StockActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    public void clickOrder(View view) {
+        Intent intent = new Intent(HomePage.this, OrderActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+
+    }
+
+    public void clickTradingFutures(View view) {
+        Intent intent = new Intent(HomePage.this, TradingFuturesActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+
+
+    }
+
+    public void clickAccount(View view) {
+        Intent intent = new Intent(HomePage.this, AccountActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivityForResult(intent, 8);
+    }
+
+
+    public void clickSeculityAccount(View view) {
+
+        Intent intent = new Intent(HomePage.this, SecuritiesAccountActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivityForResult(intent, 8);
     }
 }
