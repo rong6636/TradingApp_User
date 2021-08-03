@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity"
     android:orientation="vertical"
     android:background="@color/background_w"
-    >
+    tools:context=".DetailsActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -23,7 +22,7 @@
             android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_30"
-            android:onClick="close"
+            android:onClick="clickClose"
             android:gravity="center"
             android:layout_gravity="center"
             />
@@ -43,7 +42,7 @@
             />
 
         <Button
-            android:id="@+id/btn_stock_orderlsit"
+            android:id="@+id/btn_stock_detailslsit"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -97,20 +96,20 @@
             android:background="@color/background_w2"
             >
             <TextView
-                android:id="@+id/txv_orderTitle"
+                android:id="@+id/txv_detailsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="帳號名稱 委託單"
+                android:text="庫存明細"
                 android:textSize="@dimen/sp_30"
                 android:textColor="#FFF"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
             <TextView
-                android:id="@+id/txv_orderRenewTime"
+                android:id="@+id/txv_detailsRenewTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="更新時間: 07-22 15:02"
+                android:text="更新時間: 01-01 00:00"
                 android:textSize="@dimen/sp_16"
                 android:textColor="#FFF"
                 android:layout_gravity="center"
@@ -128,7 +127,7 @@
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_45"
                 android:orientation="horizontal"
                 android:background="@color/background_primer"
                 >
@@ -136,8 +135,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="狀態"
-                    android:textSize="@dimen/sp_23"
+                    android:text="日期"
+                    android:textSize="@dimen/sp_19"
                     android:textColor="@color/text_2"
                     android:layout_gravity="center"
                     android:gravity="center"
@@ -146,8 +145,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="名稱"
-                    android:textSize="@dimen/sp_23"
+                    android:text="名稱/動作"
+                    android:textSize="@dimen/sp_19"
                     android:textColor="@color/text_2"
                     android:layout_gravity="center"
                     android:gravity="center"
@@ -156,18 +155,18 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="委價/均價"
-                    android:textSize="@dimen/sp_23"
+                    android:text="均價/數量"
+                    android:textSize="@dimen/sp_19"
                     android:textColor="@color/text_2"
                     android:layout_gravity="center"
                     android:gravity="center"
                     />
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="數量"
-                    android:textSize="@dimen/sp_23"
+                    android:text="收/付"
+                    android:textSize="@dimen/sp_19"
                     android:textColor="@color/text_2"
                     android:layout_gravity="center"
                     android:gravity="center"
@@ -175,25 +174,14 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/lis_orderList"
+                android:id="@+id/list_detailsList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </ListView>
 
-            <LinearLayout
-                android:id="@+id/llo_orderOrderList"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0"
-                android:orientation="vertical">
-
-
-            </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 
-
-
 </LinearLayout>
+

@@ -56,11 +56,10 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         lis_orderList = findViewById(R.id.lis_orderList);
-        initIntent();
         initListView();
 
+        initIntent();
         getOrderThread();
-
     }
 
     private void initIntent() {
@@ -74,10 +73,12 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void initListView(){
+        txv_orderRenewTime = findViewById(R.id.txv_orderRenewTime);
         Log.d("zha", "a");
         datalist = new LinkedList<>();
         adapter = new SimpleAdapter(this, datalist, R.layout.item_orderitem, from, to);
         lis_orderList.setAdapter(adapter);
+
         lis_orderList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,7 +94,6 @@ public class OrderActivity extends AppCompatActivity {
                 }
             }
         });
-        txv_orderRenewTime = findViewById(R.id.txv_orderRenewTime);
 
     }
 
@@ -195,6 +195,10 @@ public class OrderActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
+                                Calendar mCal = Calendar.getInstance();
+                                CharSequence s = DateFormat.format("MM-dd kk:mm", mCal.getTime());    // kk:24小時制, hh:12小時制
+                                txv_orderRenewTime.setText("更新時間："+s);
+
                                 JSONObject data = new JSONObject(myResponse);
                                 Log.d("zha", data.length()+"");
                                 Iterator iterator = data.keys();
@@ -256,9 +260,6 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void addElementToOrderList(JSONObject order, String id) throws JSONException {
-        Calendar mCal = Calendar.getInstance();
-        CharSequence s = DateFormat.format("MM-dd kk:mm", mCal.getTime());    // kk:24小時制, hh:12小時制
-        txv_orderRenewTime.setText("更新時間："+s);
         HashMap<String, String> h_order = new HashMap<>();
 
         h_order.put(from[0], order.getString("state"));

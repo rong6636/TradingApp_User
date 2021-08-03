@@ -60,7 +60,6 @@ public class HomePage extends AppCompatActivity {
         initialization();
 
         iniThread();
-
         connectRelitGetAccountDetail();
     }
 
@@ -258,7 +257,6 @@ public class HomePage extends AppCompatActivity {
         intent.putExtra("password", password);
         startActivity(intent);
 
-
     }
 
     public void clickAccount(View view) {
@@ -272,6 +270,13 @@ public class HomePage extends AppCompatActivity {
     public void clickSeculityAccount(View view) {
 
         Intent intent = new Intent(HomePage.this, SecuritiesAccountActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivityForResult(intent, 8);
+    }
+
+    public void clickDetail(View view) {
+        Intent intent = new Intent(HomePage.this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivityForResult(intent, 8);
