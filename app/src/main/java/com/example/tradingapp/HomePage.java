@@ -267,18 +267,25 @@ public class HomePage extends AppCompatActivity {
     }
 
 
-    public void clickSeculityAccount(View view) {
-
+    public void clickSecurityAccount(View view) {
         Intent intent = new Intent(HomePage.this, SecuritiesAccountActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
-        startActivityForResult(intent, 8);
+        startActivity(intent);
+
     }
 
     public void clickDetail(View view) {
         Intent intent = new Intent(HomePage.this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
-        startActivityForResult(intent, 8);
+        startActivity(intent);
+    }
+
+    public void clickPortfolio(View view) {
+        Intent intent = new Intent(HomePage.this, portfolioActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
     }
 }

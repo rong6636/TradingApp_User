@@ -10,15 +10,21 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -37,6 +43,11 @@ public class DetailsActivity extends AppCompatActivity {
     private LinkedList<HashMap<String, String>> datalist;
     private ListView list_detailsList;
     private TextView txv_detailsRenewTime;
+    Spinner spr_details_choiceRange;
+    ArrayAdapter<String> adapterRangeTime;
+    String [] rangeTime;
+    int [] irangeTime;
+    int currentRangeTimeIndex = 0;
     private String[] from = {"time", "ticker", "type", "ap", "lots", "income", "id", "detail"};
     private int[] to = {R.id.txv_detailItemTime, R.id.txv_detailItem_name, R.id.txv_detailItem_type, R.id.txv_detailItem_ap, R.id.txv_detailItem_lot, R.id.txv_detailItem_income, 945300, 123};
 
@@ -48,6 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         initListView();
         initIntent();
+        initSpinner();
         getDetailsThread();
     }
 
@@ -61,16 +73,9 @@ public class DetailsActivity extends AppCompatActivity {
         list_detailsList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView txv = (TextView) view.findViewById(R.id.btn_orderItem_del);
-//                Toast.makeText(OrderActivity.this, "你點擊了:" + txv.getText(), Toast.LENGTH_SHORT).show();
                 Log.d("zha", datalist.get((int)id).toString());
                 HashMap<String, String> data = datalist.get((int)id);
-                if (data.get("state").equals("委")){
-//                    showDelOrderSure(data);
-                }
-                else if (!data.get("state").equals("刪")){
-//                    showOrderDetails(data);
-                }
+                showDetails(data);
             }
         });
 
@@ -86,6 +91,33 @@ public class DetailsActivity extends AppCompatActivity {
         if (activityFrom == null){
             activityFrom = "";
         }
+    }
+
+    private  void initSpinner(){
+        rangeTime = new String[]{"今天", "近三天", "近月", "近季", "近年"};
+        irangeTime = new int[]{ 1, 3, 31, 90, 365};
+
+        Log.d("zha", "111");
+
+        adapterRangeTime = new ArrayAdapter<>(DetailsActivity.this, android.R.layout.simple_spinner_dropdown_item, rangeTime);
+        Log.d("zha", "112");
+        spr_details_choiceRange = findViewById(R.id.spr_details_choiceRange);
+        Log.d("zha", "113");
+        spr_details_choiceRange.setAdapter(adapterRangeTime);
+        Log.d("zha", "114");
+        spr_details_choiceRange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                FLAG_GETORDER_PERMISSION = true;
+                currentRangeTimeIndex = (int)id;
+                Toast.makeText(DetailsActivity.this, "您選擇了:" + rangeTime[position], Toast.LENGTH_SHORT).show();
+                connectSeverGetOrder();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getDetailsThread() {
@@ -106,7 +138,19 @@ public class DetailsActivity extends AppCompatActivity {
         }).start();
     }
 
+    public static int CompareDaysOfTwo(String sdate) throws ParseException {
+        sdate = sdate.substring(0, 10);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = sdf.parse(sdate);
+        Calendar aCalendar = Calendar.getInstance();
+        aCalendar.setTime(date);
+        int idate = aCalendar.get(Calendar.DAY_OF_YEAR);
+        Date today = new Date();
+        aCalendar.setTime(today);
+        int idaytodate = aCalendar.get(Calendar.DAY_OF_YEAR);
 
+        return idaytodate - idate;
+    }
 
     private void connectSeverGetOrder() {
         OkHttpClient client = new OkHttpClient();
@@ -164,6 +208,9 @@ public class DetailsActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Log.d("zha", "failed myResponse");
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                Log.d("zha", "ParseException Failed ");
                             }
                         }
                     });
@@ -172,48 +219,56 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    public void addElementToDetailsList(JSONObject details, String id, String dayTime) throws JSONException {
-        HashMap<String, String> h_details = new HashMap<>();
-        Log.d("zha", details.toString());
-
-        h_details.put(from[0], dayTime);
+    public void addElementToDetailsList(JSONObject details, String id, String dayTime) throws JSONException, ParseException {
         Log.d("zha", "11112");
-        Log.d("zha", details.getString("ticker"));
-        Log.d("zha", dayTime);
-        h_details.put(from[1], details.getString("ticker"));
-        Log.d("zha", "11113");
-        h_details.put(from[2], details.getString("type"));
-        Log.d("zha", "11114");
-        h_details.put(from[3], String.valueOf(details.getDouble("a_p")));
-        Log.d("zha", "11116");
-        h_details.put(from[4], String.valueOf(details.getInt("totalLots")));
-        Log.d("zha", "11117");
-        h_details.put(from[5], String.valueOf(details.getInt("income")));
-        Log.d("zha", "11118");
-        h_details.put(from[6], id);
+        Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(CompareDaysOfTwo(dayTime)));
+        Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(irangeTime[currentRangeTimeIndex]));
+        if (CompareDaysOfTwo(dayTime) <= irangeTime[currentRangeTimeIndex]){
+            HashMap<String, String> h_details = new HashMap<>();
+            Log.d("zha", details.toString());
 
-        Log.d("zha", "11119");
-        String connent = "";
-        JSONObject detail = details.getJSONObject("detail");
-        Log.d("zha", "11120");
-        if (detail.length() > 0) {
-            Iterator iterator = detail.keys();
-            while (iterator.hasNext()) {
-                String time = (String) iterator.next();
-                connent += time+"："+details.getJSONObject("detail").getString(time)+"\n";
+            h_details.put(from[0], dayTime);
+            h_details.put(from[1], details.getString("ticker"));
+            h_details.put(from[2], details.getString("type"));
+            h_details.put(from[3], String.valueOf(details.getDouble("a_p")));
+            h_details.put(from[4], String.valueOf(details.getInt("totalLots")));
+            h_details.put(from[5], String.valueOf(details.getInt("income")));
+            h_details.put(from[6], id);
+
+            String connent = "";
+            JSONObject detail = details.getJSONObject("detail");
+            if (detail.length() > 0) {
+                Iterator iterator = detail.keys();
+                while (iterator.hasNext()) {
+                    String time = (String) iterator.next();
+                    connent += time+"："+details.getJSONObject("detail").getString(time)+"\n";
+                }
             }
-        }
-        else{
-            connent = "NO Detail";
-        }
-        h_details.put(from[7], connent);
-        Log.d("zha", "11121");
+            else{
+                connent = "NO Detail";
+            }
+            h_details.put(from[7], connent);
 
-        datalist.add(h_details);
-        Log.d("zha", h_details.toString());
-        adapter.notifyDataSetInvalidated();
+            datalist.add(h_details);
+            Log.d("zha", h_details.toString());
+            adapter.notifyDataSetInvalidated();
+        }
     }
 
+
+    private void showDetails(HashMap<String, String> data){
+        Log.d("zha", data.toString());
+        String content = "委託：" +data.get("type") + " " +data.get("ticker")+"\n"+"成交數："+data.get("lots")+"\n"+data.get("detail");
+        new AlertDialog.Builder(DetailsActivity.this)
+                .setTitle(data.get("id") + " 細項")
+                .setMessage(content)
+                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("zha", "確認?");
+                    }
+                }).show();
+    }
 
     public void clickClose(View view) {
         FLAG_GETORDER_PERMISSION = false;
@@ -241,7 +296,25 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
+    public void clickOrder(View view) {
+        Intent intent = new Intent(DetailsActivity.this, OrderActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        intent.putExtra("from", "TradingFuturesActivity");
+        startActivityForResult(intent, 2);
+        clickClose(view);
+
+    }
     public void test(View view) {
 
+    }
+
+    public void clickPortfolio(View view) {
+
+        Intent intent = new Intent(DetailsActivity.this, portfolioActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+        clickClose(view);
     }
 }

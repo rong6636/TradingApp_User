@@ -11,13 +11,13 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/dp_38"
         android:background="@color/background_primer"
         android:orientation="horizontal"
         >
         <Button
             android:id="@+id/btn_futures_close"
-            android:layout_width="30dp"
+            android:layout_width="@dimen/dp_30"
             android:layout_height="match_parent"
             android:text="X"
             android:background="#1d2333"
@@ -35,8 +35,9 @@
             android:layout_height="40dp"
             android:text="下單"
             android:background="#1d2333"
-            android:textColor="#FFF"
-            android:textSize="@dimen/sp_22"
+            android:textColor="@color/background_w"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickTradingFutures"
@@ -50,7 +51,7 @@
             android:text="委託"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="@dimen/sp_22"
+            android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickOrder"
@@ -61,12 +62,13 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:text="庫存"
+            android:text="明細"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="@dimen/sp_22"
+            android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
+            android:onClick="clickDetail"
             />
 
         <Button
@@ -74,13 +76,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:text="帳戶"
+            android:text="庫存"
             android:background="#1d2333"
             android:textColor="#FFF"
-            android:textSize="@dimen/sp_22"
-            android:onClick="test"
+            android:textSize="@dimen/sp_20"
+            android:onClick="clickPortfolio"
             android:gravity="center"
             android:layout_gravity="center"
+
             />
 
     </LinearLayout >

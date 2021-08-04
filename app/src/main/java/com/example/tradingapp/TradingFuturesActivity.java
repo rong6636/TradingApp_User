@@ -294,8 +294,8 @@ public class TradingFuturesActivity extends AppCompatActivity {
 
                                 int tatalBidLot = 0, tatalAskLot = 0;
                                 for (int i = 0; i < 5; i++) {
-                                    String bp = String.format("%.02f", Float.valueOf(bestBid+i));
-                                    String ap = String.format("%.02f", Float.valueOf(bestAsk-i));
+                                    String bp = String.format("%.02f", Float.valueOf(bestBid-i+4));
+                                    String ap = String.format("%.02f", Float.valueOf(bestAsk+i-4));
                                     String bl = String.valueOf(bestBidLot[i]);
                                     String al = String.valueOf(bestAskLot[i]);
 
@@ -631,5 +631,21 @@ public class TradingFuturesActivity extends AppCompatActivity {
                     .show();
         }
 
+    }
+
+    public void clickDetail(View view) {
+        Intent intent = new Intent(TradingFuturesActivity.this, DetailsActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivityForResult(intent, 8);
+        close(view);
+    }
+
+    public void clickPortfolio(View view) {
+        Intent intent = new Intent(TradingFuturesActivity.this, portfolioActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+        close(view);
     }
 }

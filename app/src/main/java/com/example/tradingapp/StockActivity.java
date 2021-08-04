@@ -643,4 +643,20 @@ public class StockActivity extends AppCompatActivity {
         close(view);
 
     }
+
+    public void clickDetail(View view) {
+        Intent intent = new Intent(StockActivity.this, DetailsActivity.class);
+        intent.putExtra("user", USER);
+        intent.putExtra("password", PASSWORD);
+        startActivityForResult(intent, 8);
+        close(view);
+    }
+
+    public void clickPortfolio(View view) {
+        Intent intent = new Intent(StockActivity.this, portfolioActivity.class);
+        intent.putExtra("user", USER);
+        intent.putExtra("password", PASSWORD);
+        startActivity(intent);
+        close(view);
+    }
 }

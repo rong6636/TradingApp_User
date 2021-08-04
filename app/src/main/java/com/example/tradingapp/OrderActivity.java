@@ -86,20 +86,38 @@ public class OrderActivity extends AppCompatActivity {
 //                Toast.makeText(OrderActivity.this, "你點擊了:" + txv.getText(), Toast.LENGTH_SHORT).show();
                 Log.d("zha", datalist.get((int)id).toString());
                 HashMap<String, String> data = datalist.get((int)id);
-                if (data.get("state").equals("委")){
-                    showDelOrderSure(data);
-                }
-                else if (!data.get("state").equals("刪")){
-                    showOrderDetails(data);
-                }
+                if (data.get("state").equals("委"))
+                    showOrderDetail(data);
             }
         });
 
     }
 
-    private void showDelOrderSure(HashMap<String, String> data){
+    private void showOrderDetail(HashMap<String, String> data){
+        String content = "委託：" +data.get("type")+" "+data.get("name") + "\n當前狀態：" +data.get("state") + "\n"
+                + "委託價：" + data.get("price") + "\n" + "委託量：" +data.get("lots") + "\n";
+        new AlertDialog.Builder(OrderActivity.this)
+                .setTitle("委託書號：" + data.get("id"))
+                .setMessage(content)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("zha", "OK?");
+                    }
+                })
+                .setNegativeButton("刪單", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("zha", "刪單?");
+                        showOrderDelSure(data);
+                    }
+                })
+                .show();
+    }
+
+    private void showOrderDelSure(HashMap<String, String> data){
         String content = "委託單號：" + data.get("id") + "\n" + "委託動作：" +data.get("type")  + "\n當前狀態：" +data.get("state") + "\n" + "股票名稱："+data.get("name")+"\n"
-                + "委託價：" + data.get("price") + "\n" + "委託量：" +data.get("lots") + "\n" +"如要刪單，請按確認。";
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n" +"如要刪單，請按確認。";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("動作：刪單")
                 .setMessage(content)
@@ -116,28 +134,7 @@ public class OrderActivity extends AppCompatActivity {
                         Log.d("zha", "取消?");
                     }
                 })
-                .setNeutralButton("?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("zha", "??");
-                    }
-                })
                 .show();
-    }
-
-    private void showOrderDetails(HashMap<String, String> data){
-        String content = "委託單號：" + data.get("id") + "\n" + "委託動作：" +data.get("type") + "\n" + "委託股票：" +data.get("name")+"\n"
-                + "委託價：" + data.get("price") + "\n" + "委託量：" +data.get("lots") + "\n\n";
-        new AlertDialog.Builder(OrderActivity.this)
-                .setTitle("Detail")
-                .setMessage(content)
-                .setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("zha", "確認?");
-                        connectSeverDelOrder(data.get("id"));
-                    }
-                }).show();
     }
 
     public void close(View view) {
@@ -235,7 +232,6 @@ public class OrderActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 Log.d("zha", "failed onFailure");
                 e.printStackTrace();
-
             }
 
             @Override
@@ -310,5 +306,22 @@ public class OrderActivity extends AppCompatActivity {
         else{
             close(view);
         }
+    }
+
+    public void clickDetail(View view) {
+        Intent intent = new Intent(OrderActivity.this, DetailsActivity.class);
+        intent.putExtra("user", USER);
+        intent.putExtra("password", PASSWORD);
+        startActivity(intent);
+        close(view);
+    }
+
+    public void clickPortfolio(View view) {
+
+        Intent intent = new Intent(OrderActivity.this, portfolioActivity.class);
+        intent.putExtra("user", USER);
+        intent.putExtra("password", PASSWORD);
+        startActivity(intent);
+        close(view);
     }
 }

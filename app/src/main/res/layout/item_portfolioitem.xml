@@ -4,19 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-    <TextView
-        android:id="@+id/btn_orderItem_del"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:text="刪"
-        android:textSize="@dimen/sp_23"
-        android:textColor="#FFF"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@color/background_d"
-        android:layout_marginHorizontal="0.5dp"
-        />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -28,21 +15,11 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_orderItem_name"
+            android:id="@+id/txv_portfolioItem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="台積電"
-            android:textSize="@dimen/sp_23"
-            android:textColor="#FFF"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
-        <TextView
-            android:id="@+id/txv_orderItem_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textSize="@dimen/sp_23"
+            android:text="大台指近一"
+            android:textSize="@dimen/sp_19"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -60,28 +37,27 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_orderItem_orderPrice"
+            android:id="@+id/txv_portfolioItem_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5000"
-            android:textSize="@dimen/sp_23"
+            android:text="99999.00"
+            android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
             />
         <TextView
-            android:id="@+id/txv_orderItem_finalPrice"
+            android:id="@+id/txv_portfolioItem_ap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5000"
-            android:textSize="@dimen/sp_23"
+            android:text="10000.00"
+            android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
             />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="0dp"
@@ -93,18 +69,51 @@
         android:gravity="center"
         >
         <TextView
-                android:id="@+id/txv_orderItem_lot"
+            android:id="@+id/txv_portfolioItem_lot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="@dimen/sp_19"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/txv_portfolioItem_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多"
+            android:textSize="@dimen/sp_19"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_d"
+        android:layout_marginHorizontal="0.5dp"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/txv_portfolioItem_income"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="1000"
-            android:textSize="@dimen/sp_23"
+            android:text="-61,000,000"
+            android:textSize="@dimen/sp_19"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@color/background_d"
             android:layout_marginHorizontal="0.5dp"
             />
-
     </LinearLayout>
 </LinearLayout>

@@ -89,6 +89,7 @@
                 android:text="細"
                 android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
+                android:onClick="clickDetail"
                 />
         </LinearLayout>
 
@@ -115,15 +116,16 @@
                 android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
                 />
+
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="庫"
-                android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
-                android:onClick="clickDetail"
-                />
+                android:textSize="@dimen/sp_48"
+                android:onClick="clickPortfolio"/>
+
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -131,7 +133,7 @@
                 android:text="帳"
                 android:textSize="@dimen/sp_48"
                 android:textColor="#2196f3"
-                android:onClick="clickSeculityAccount"
+                android:onClick="clickSecurityAccount"
                 />
         </LinearLayout>
 

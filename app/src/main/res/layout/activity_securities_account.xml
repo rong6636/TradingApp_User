@@ -12,13 +12,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/dp_40"
         android:background="#1d2333"
         >
         <Button
             android:id="@+id/btn_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:text="O"
             android:background="#1d2333"
             android:layout_alignParentLeft="true"
