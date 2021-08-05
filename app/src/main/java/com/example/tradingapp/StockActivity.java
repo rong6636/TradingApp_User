@@ -235,11 +235,6 @@ public class StockActivity extends AppCompatActivity {
                                             String ap = String.format("%.02f", Float.valueOf(bestAskP[i]));
                                             String bl = bestBidL[i];
                                             String al = bestAskL[i];
-                                            txv_stock_bidprice[i].setText(bp);
-                                            txv_stock_bidlot[i].setText(bl);
-                                            txv_stock_askprice[i].setText(ap);
-                                            txv_stock_asklot[i].setText(al);
-
 
                                             if (!txv_stock_bidprice[i].getText().toString().equals(bp)){
                                                 txv_stock_bidprice[i].startAnimation(am_renew);
@@ -257,6 +252,10 @@ public class StockActivity extends AppCompatActivity {
                                             }
 
 
+                                            txv_stock_bidprice[i].setText(bp);
+                                            txv_stock_bidlot[i].setText(bl);
+                                            txv_stock_askprice[i].setText(ap);
+                                            txv_stock_asklot[i].setText(al);
                                             tatalBidLot += Integer.valueOf(bestBidL[i]);
                                             tatalAskLot += Integer.valueOf(bestAskL[i]);
                                         }
@@ -272,14 +271,14 @@ public class StockActivity extends AppCompatActivity {
                                             type = "櫃";
                                         }
 
-                                        String str_change = "";
                                         float f_change = (Float.valueOf(z) - Float.valueOf(y)) / Float.valueOf(y) * 100;
+                                        String str_change = String.format("%.02f", f_change) + "%";
                                         if (f_change > 0) {
-                                            str_change += "▲"+String.format("%.02f", f_change) + "%";
+                                            str_change = "▲"+str_change;
                                             txv_stock_titlePrice.setTextColor(getResources().getColor(R.color.grainer_));
                                             txv_stock_titleChange.setTextColor(getResources().getColor(R.color.grainer_));
                                         } else if (f_change < 0) {
-                                            str_change += "▼"+String.format("%.02f", f_change) + "%";
+                                            str_change = "▼"+str_change;
                                             txv_stock_titlePrice.setTextColor(getResources().getColor(R.color.loser_));
                                             txv_stock_titleChange.setTextColor(getResources().getColor(R.color.loser_));
                                         }
@@ -318,11 +317,6 @@ public class StockActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
-                txv_stock_titleType.setText(ntype);
-                txv_stock_titleName.setText(nname);
-                txv_stock_titlePrice.setText(nprice);
-                txv_stock_titleChange.setText(nchange);
-                txv_stock_renewTime.setText("lastRenewTime: "+ntime);
                 if (!txv_stock_titlePrice.getText().toString().equals(nprice)){
                     txv_stock_titlePrice.startAnimation(am_renew);
                 }
@@ -332,6 +326,12 @@ public class StockActivity extends AppCompatActivity {
                 if (!txv_stock_renewTime.getText().toString().equals(ntime)){
                     txv_stock_renewTime.startAnimation(am_renew);
                 }
+
+                txv_stock_titleType.setText(ntype);
+                txv_stock_titleName.setText(nname);
+                txv_stock_titlePrice.setText(nprice);
+                txv_stock_titleChange.setText(nchange);
+                txv_stock_renewTime.setText("lastRenewTime: "+ntime);
             }
         });
     }

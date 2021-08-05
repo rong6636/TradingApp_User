@@ -223,7 +223,7 @@ public class DetailsActivity extends AppCompatActivity {
         Log.d("zha", "11112");
         Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(CompareDaysOfTwo(dayTime)));
         Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(irangeTime[currentRangeTimeIndex]));
-        if (CompareDaysOfTwo(dayTime) <= irangeTime[currentRangeTimeIndex]){
+        if (CompareDaysOfTwo(dayTime) < irangeTime[currentRangeTimeIndex]){
             HashMap<String, String> h_details = new HashMap<>();
             Log.d("zha", details.toString());
 

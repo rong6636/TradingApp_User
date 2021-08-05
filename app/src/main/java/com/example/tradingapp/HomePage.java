@@ -116,7 +116,6 @@ public class HomePage extends AppCompatActivity {
 
     private void sendPOST(int i) {
         OkHttpClient client = new OkHttpClient();
-
         String[] url = new String[]{
                 "https://tw.quote.finance.yahoo.net/quote/q?type=tick&perd=1m&mkt=10&sym=%23001",
                 "https://tw.quote.finance.yahoo.net/quote/q?type=tick&perd=1m&mkt=10&sym=%23026",

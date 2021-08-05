@@ -182,6 +182,7 @@
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="#555"
                     >
 
                     <TextView

@@ -1,10 +1,12 @@
 package com.example.tradingapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -23,9 +25,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,10 +42,15 @@ public class portfolioActivity extends AppCompatActivity {
 
     String user, password, activityFrom;
     private SimpleAdapter adapter;
-    private boolean FLAG_RENEW_PERMISSION = false;
+    private boolean FLAG_RENEW_PERMISSION = false, FLAG_RENEW_ITEM_PERMISSION = false;
     private LinkedList<HashMap<String, String>> datalist;
     private ListView list_portfolioList;
     private TextView txv_portfolioRenewTime;
+    Map futuresPrice = new HashMap();
+    Map urlList = new HashMap();
+
+    private JSONObject jsonTwStock;
+    private JSONObject jsonTwFutures;
 
     private String[] from = {"ticker", "price", "ap", "lots", "type", "income"};
     private int[] to = {R.id.txv_portfolioItem_name, R.id.txv_portfolioItem_price, R.id.txv_portfolioItem_ap, R.id.txv_portfolioItem_lot, R.id.txv_portfolioItem_type, R.id.txv_portfolioItem_income};
@@ -51,9 +61,52 @@ public class portfolioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
+        initialization();
         initListView();
         initIntent();
-        getPortfolioThread();
+        connectSeverGetPortfolio();
+        renewItemThread();
+    }
+
+    private void renewItemThread() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (FLAG_RENEW_PERMISSION) {
+                    getAllFuturesPrice();
+                    try {
+                        Thread.sleep(1500 + (int) (Math.random() * 5000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        renewPortfolioItem();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void initialization() {
+
+        futuresPrice.put("大台指近一", 0);
+        futuresPrice.put("大台指近二", 0);
+        futuresPrice.put("小台指近一", 0);
+        futuresPrice.put("小台指近二", 0);
+        futuresPrice.put("金融期近一", 0);
+        futuresPrice.put("電子期近一", 0);
+
+
+        urlList.put("大台指近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTX%26");
+        urlList.put("大台指近二", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTX%40");
+        urlList.put("小台指近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WMT%26");
+        urlList.put("小台指近二", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WMT%40");
+        urlList.put("金融期近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTF%26");
+        urlList.put("電子期近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTE%26");
+
     }
 
     private void initListView(){
@@ -71,8 +124,6 @@ public class portfolioActivity extends AppCompatActivity {
                 showDetails(data);
             }
         });
-
-
         FLAG_RENEW_PERMISSION = true;
     }
 
@@ -86,23 +137,6 @@ public class portfolioActivity extends AppCompatActivity {
         }
     }
 
-    private void getPortfolioThread() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (FLAG_RENEW_PERMISSION) {
-                    connectSeverGetPortfolio();
-                    Log.d("zha", "getPortfolioThread do end");
-                    try {
-                        Thread.sleep(1000 + (int) (Math.random() * 5000));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.d("zha", "getPortfolioThread Failed ");
-                    }
-                }
-            }
-        }).start();
-    }
 
     private void showDetails(HashMap<String, String> data){
         Log.d("zha", data.toString());
@@ -134,12 +168,6 @@ public class portfolioActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 Log.d("zha", "failed onFailure");
                 e.printStackTrace();
-                portfolioActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
             }
 
             @Override
@@ -158,43 +186,16 @@ public class portfolioActivity extends AppCompatActivity {
                                 JSONObject data = new JSONObject(myResponse);
                                 Log.d("zha", data.length()+"");
 
-                                JSONObject twStocks = data.getJSONObject("twStocks");
-                                JSONObject twFutures = data.getJSONObject("twFutures");
+                                jsonTwStock = data.getJSONObject("twStocks");
+                                jsonTwFutures = data.getJSONObject("twFutures");
+                                renewPortfolioItem();
 
-                                Iterator it_twStocks = twStocks.keys();
-                                Iterator it_twFutures = twFutures.keys();
-                                datalist.clear();
-
-                                while (it_twStocks.hasNext()){
-                                    Log.d("zha", "1111");
-                                    String stock = (String)it_twStocks.next();
-                                    Log.d("zha", "1112");
-                                    JSONObject jStock = twStocks.getJSONObject(stock);
-                                    Log.d("zha", "1113");
-
-                                    addElementToPortfolioList(jStock, stock);
-                                    Log.d("zha", "1114");
-                                }
-
-                                while (it_twFutures.hasNext()){
-                                    Log.d("zha", "2111");
-                                    String futures = (String)it_twFutures.next();
-                                    Log.d("zha", "2112");
-                                    JSONObject jFutures = twFutures.getJSONObject(futures);
-                                    Log.d("zha", "2113");
-
-                                    addElementToPortfolioList(jFutures, futures);
-                                    Log.d("zha", "2114");
-                                }
-                                FLAG_RENEW_PERMISSION = true;
+                                FLAG_RENEW_ITEM_PERMISSION = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Log.d("zha", "failed myResponse");
                                 txv_portfolioRenewTime.setText("回傳格式出錯");
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                Log.d("zha", "ParseException Failed ");
-                                txv_portfolioRenewTime.setText("ParseException");
+                                FLAG_RENEW_ITEM_PERMISSION = false;
                             }
                         }
                     });
@@ -203,41 +204,124 @@ public class portfolioActivity extends AppCompatActivity {
         });
     }
 
-    public void addElementToPortfolioList(JSONObject data, String name) throws JSONException, ParseException {
-        Log.d("zha", "11112");
+    private void getFuturesPrice(String ticker){
+        String url = (String) urlList.get(ticker);
 
-        if (Math.abs(data.getInt("Lots"))>0)
-        {
-            HashMap<String, String> h_portfolio = new HashMap<>();
-            Log.d("zha", data.toString());
+        OkHttpClient client = new OkHttpClient();
 
-            h_portfolio.put(from[0], name);
-            h_portfolio.put(from[1], "市價未開放");
-            h_portfolio.put(from[2], data.getString("Average_Price"));
-            h_portfolio.put(from[3], String.valueOf(Math.abs(data.getInt("Lots"))));
-            if (data.getInt("Lots") > 0) {
-                h_portfolio.put(from[4], "買");
-            } else {
-                h_portfolio.put(from[4], "賣");
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
-            h_portfolio.put(from[5], "損益未開放");
-
-
-            datalist.add(h_portfolio);
-            Log.d("zha", h_portfolio.toString());
-            adapter.notifyDataSetInvalidated();
-        }
-
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    portfolioActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            昨收 129  當盤漲幅 185
+                            try {
+                                int start = myResponse.indexOf("\"125\":");
+                                start = myResponse.indexOf(":", start) + 1;
+                                int end = myResponse.indexOf(",", start);
+                                float price = Float.parseFloat(myResponse.substring(start, end));
+                                futuresPrice.put(ticker, price);
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
+    private void getAllFuturesPrice() {
+        getFuturesPrice("大台指近一");
+        getFuturesPrice("大台指近二");
+        getFuturesPrice("小台指近一");
+        getFuturesPrice("小台指近二");
+        getFuturesPrice("金融期近一");
+        getFuturesPrice("電子期近一");
+    }
+
+    public void renewPortfolioItem() throws JSONException {
+        datalist.clear();
+        Iterator it_twStocks = jsonTwStock.keys();
+        Iterator it_twFutures = jsonTwFutures.keys();
+
+        while (it_twStocks.hasNext()){
+            String stock = (String)it_twStocks.next();
+            JSONObject jStock = jsonTwStock.getJSONObject(stock);
+            addElementToPortfolioList(jStock, stock);
+        }
+
+        while (it_twFutures.hasNext()){
+            String futures = (String)it_twFutures.next();
+            JSONObject jFutures = jsonTwFutures.getJSONObject(futures);
+            addElementToPortfolioList(jFutures, futures);
+        }
+    }
+
+    public void addElementToPortfolioList(JSONObject data, String name) throws JSONException {
+        Log.d("zha", "11112");
+        portfolioActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (Math.abs(data.getInt("Lots"))>0)
+                    {
+                        HashMap<String, String> h_portfolio = new HashMap<>();
+                        Log.d("zha", data.toString());
+                        Log.d("zha", name);
+
+                        h_portfolio.put(from[0], name);
+                        h_portfolio.put(from[1], futuresPrice.get(name).toString());
+                        h_portfolio.put(from[2], data.getString("Average_Price"));
+                        h_portfolio.put(from[3], String.valueOf(Math.abs(data.getInt("Lots"))));
+                        if (data.getInt("Lots") > 0) {
+                            h_portfolio.put(from[4], "買");
+                        } else {
+                            h_portfolio.put(from[4], "賣");
+                        }
+                        double income = 0;
+                        if ((Float)futuresPrice.get(name) > 0){
+                            income = ((Float)futuresPrice.get(name)-data.getDouble("Average_Price"))*data.getInt("Lots");
+                        }
+                        if (name.equals("大台指近一") || name.equals("大台指近二") || name.equals("電子期近一")){
+                            income*=200;
+                        }
+                        else if (name.equals("小台指近一") || name.equals("小台指近二")){
+                            income*=50;
+                        }
+                        else if (name.equals("金融期近一")){
+                            income*=1000;
+                        }
+                        h_portfolio.put(from[5], String.valueOf(income));
+
+                        datalist.add(h_portfolio);
+                        Log.d("zha", h_portfolio.toString());
+                        adapter.notifyDataSetInvalidated();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
+    }
 
     public void clickClose(View view) {
         FLAG_RENEW_PERMISSION = false;
         finish();
-
     }
 
     public void clickTrading(View view) {

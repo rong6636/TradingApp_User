@@ -299,11 +299,6 @@ public class TradingFuturesActivity extends AppCompatActivity {
                                     String bl = String.valueOf(bestBidLot[i]);
                                     String al = String.valueOf(bestAskLot[i]);
 
-                                    txv_futures_bidprice[i].setText(bp);
-                                    txv_futures_askprice[i].setText(ap);
-                                    txv_futures_bidlot[i].setText(bl);
-                                    txv_futures_asklot[i].setText(al);
-
                                     if (!txv_futures_bidprice[i].getText().toString().equals(bp)){
                                         txv_futures_bidprice[i].startAnimation(am_renew);
                                         txv_futures_bidlot[i].startAnimation(am_renew);
@@ -319,6 +314,10 @@ public class TradingFuturesActivity extends AppCompatActivity {
                                         txv_futures_asklot[i].startAnimation(am_renew);
                                     }
 
+                                    txv_futures_bidprice[i].setText(bp);
+                                    txv_futures_askprice[i].setText(ap);
+                                    txv_futures_bidlot[i].setText(bl);
+                                    txv_futures_asklot[i].setText(al);
                                     tatalBidLot += Integer.valueOf(bestBidLot[i]);
                                     tatalAskLot += Integer.valueOf(bestAskLot[i]);
                                 }
@@ -357,11 +356,6 @@ public class TradingFuturesActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
-                txv_futures_titleType.setText(ntype);
-                txv_futures_titleName.setText(nname);
-                txv_futures_titlePrice.setText(nprice);
-                txv_futures_titleChange.setText(nchange);
-                txv_futures_renewTime.setText("lastRenewTime: "+ntime);
                 if (!txv_futures_titlePrice.getText().toString().equals(nprice)){
                     txv_futures_titlePrice.startAnimation(am_renew);
                 }
@@ -371,6 +365,12 @@ public class TradingFuturesActivity extends AppCompatActivity {
                 if (!txv_futures_renewTime.getText().toString().equals(ntime)){
                     txv_futures_renewTime.startAnimation(am_renew);
                 }
+
+                txv_futures_titleType.setText(ntype);
+                txv_futures_titleName.setText(nname);
+                txv_futures_titlePrice.setText(nprice);
+                txv_futures_titleChange.setText(nchange);
+                txv_futures_renewTime.setText("lastRenewTime: "+ntime);
             }
         });
     }
