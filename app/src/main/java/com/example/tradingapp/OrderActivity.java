@@ -45,7 +45,7 @@ public class OrderActivity extends AppCompatActivity {
     private ListView lis_orderList;
     private TextView txv_orderRenewTime;
     private LinkedList<HashMap<String, String>> datalist;
-    private String[] from = {"state", "name", "type", "orderPrice", "finalPrice", "lots", "id", "type"};
+    private String[] from = {"state", "name", "type", "orderPrice", "finalPrice", "lots", "id", "time"};
     private int[] to = {R.id.btn_orderItem_del, R.id.txv_orderItem_name, R.id.txv_orderItem_type, R.id.txv_orderItem_orderPrice, R.id.txv_orderItem_finalPrice, R.id.txv_orderItem_lot, 945300, 945300};
 
     private String USER, PASSWORD, activityFrom;
@@ -74,7 +74,6 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initListView(){
         txv_orderRenewTime = findViewById(R.id.txv_orderRenewTime);
-        Log.d("zha", "a");
         datalist = new LinkedList<>();
         adapter = new SimpleAdapter(this, datalist, R.layout.item_orderitem, from, to);
         lis_orderList.setAdapter(adapter);
@@ -88,14 +87,15 @@ public class OrderActivity extends AppCompatActivity {
                 HashMap<String, String> data = datalist.get((int)id);
                 if (data.get("state").equals("委"))
                     showOrderDetail(data);
+                else
+                    showOrderDetail_2(data);
             }
         });
-
     }
 
     private void showOrderDetail(HashMap<String, String> data){
         String content = "委託：" +data.get("type")+" "+data.get("name") + "\n當前狀態：" +data.get("state") + "\n"
-                + "委託價：" + data.get("price") + "\n" + "委託量：" +data.get("lots") + "\n";
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n"+ "委託時間：" +data.get("time") + "\n";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("委託書號：" + data.get("id"))
                 .setMessage(content)
@@ -115,9 +115,24 @@ public class OrderActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void showOrderDetail_2(HashMap<String, String> data){
+        String content = "委託：" +data.get("type")+" "+data.get("name") + "\n當前狀態：" +data.get("state") + "\n"
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n"+ "委託時間：" +data.get("time") + "\n";
+        new AlertDialog.Builder(OrderActivity.this)
+                .setTitle("委託書號：" + data.get("id"))
+                .setMessage(content)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d("zha", "OK?");
+                    }
+                })
+                .show();
+    }
+
     private void showOrderDelSure(HashMap<String, String> data){
         String content = "委託單號：" + data.get("id") + "\n" + "委託動作：" +data.get("type")  + "\n當前狀態：" +data.get("state") + "\n" + "股票名稱："+data.get("name")+"\n"
-                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n" +"如要刪單，請按確認。";
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n" + "委託時間：" +data.get("time") + "\n" +"如要刪單，請按確認。";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("動作：刪單")
                 .setMessage(content)
@@ -148,6 +163,7 @@ public class OrderActivity extends AppCompatActivity {
             public void run() {
                 while (FLAG_GETORDER_PERMISSION) {
                     connectSeverGetOrder();
+                    txv_orderRenewTime.setText("更新時間： 連接中...");
                     Log.d("zha", "getOrderThread do end");
                     try {
                         Thread.sleep(10000 + (int) (Math.random() * 110000));
@@ -187,7 +203,6 @@ public class OrderActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    Log.d("zha",myResponse);
                     OrderActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -196,14 +211,15 @@ public class OrderActivity extends AppCompatActivity {
                                 CharSequence s = DateFormat.format("MM-dd kk:mm", mCal.getTime());    // kk:24小時制, hh:12小時制
                                 txv_orderRenewTime.setText("更新時間："+s);
 
-                                JSONObject data = new JSONObject(myResponse);
-                                Log.d("zha", data.length()+"");
-                                Iterator iterator = data.keys();
+                                JSONObject req = new JSONObject(myResponse);
+                                JSONArray data = req.getJSONArray("orderlist");
                                 datalist.clear();
-                                while (iterator.hasNext()){
-                                    String key = (String)iterator.next();
-                                    JSONObject order = data.getJSONObject(key);
-                                    addElementToOrderList(order, key);
+
+                                for (int i = 0; i< data.length(); i++)
+                                {
+                                    JSONObject order = (JSONObject) data.get(i);
+
+                                    addElementToOrderList(order, order.getString("key"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -211,6 +227,9 @@ public class OrderActivity extends AppCompatActivity {
                             }
                         }
                     });
+                }
+                else{
+                    Log.d("zha", "failed onResponse");
                 }
             }
         });
@@ -264,7 +283,7 @@ public class OrderActivity extends AppCompatActivity {
         h_order.put(from[3], String.valueOf(order.getDouble("price")));
         h_order.put(from[5], String.valueOf(order.getInt("lots")));
         h_order.put(from[6], id);
-        h_order.put(from[7], order.getString("type"));
+        h_order.put(from[7], order.getString("time"));
 
         int m = 0, v = 0;
         JSONObject pv = order.getJSONObject("p_v");
@@ -314,14 +333,15 @@ public class OrderActivity extends AppCompatActivity {
         intent.putExtra("password", PASSWORD);
         startActivity(intent);
         close(view);
+
     }
 
     public void clickPortfolio(View view) {
-
-        Intent intent = new Intent(OrderActivity.this, portfolioActivity.class);
+        Intent intent = new Intent(OrderActivity.this, InStockActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
         startActivity(intent);
         close(view);
+
     }
 }

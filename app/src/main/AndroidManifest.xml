@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".portfolioActivity"></activity>
+        <activity android:name=".TalkActivity"></activity>
+        <activity android:name=".InStockActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".SecuritiesAccountActivity" />
         <activity android:name=".AccountActivity" />

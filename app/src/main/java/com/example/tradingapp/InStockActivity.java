@@ -1,36 +1,28 @@
 package com.example.tradingapp;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -38,14 +30,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class portfolioActivity extends AppCompatActivity {
-
+public class InStockActivity extends AppCompatActivity {
     String user, password, activityFrom;
     private SimpleAdapter adapter;
     private boolean FLAG_RENEW_PERMISSION = false, FLAG_RENEW_ITEM_PERMISSION = false;
     private LinkedList<HashMap<String, String>> datalist;
-    private ListView list_portfolioList;
-    private TextView txv_portfolioRenewTime;
+    private ListView list_inStockList;
+    private TextView txv_inStockRenewTime;
     Map futuresPrice = new HashMap();
     Map urlList = new HashMap();
 
@@ -53,13 +44,13 @@ public class portfolioActivity extends AppCompatActivity {
     private JSONObject jsonTwFutures;
 
     private String[] from = {"ticker", "price", "ap", "lots", "type", "income"};
-    private int[] to = {R.id.txv_portfolioItem_name, R.id.txv_portfolioItem_price, R.id.txv_portfolioItem_ap, R.id.txv_portfolioItem_lot, R.id.txv_portfolioItem_type, R.id.txv_portfolioItem_income};
-
+    private int[] to = {R.id.txv_stockActivityItem_name, R.id.txv_stockActivityItem_price, R.id.txv_stockActivityItem_ap, R.id.txv_stockActivityItem_lot, R.id.txv_stockActivityItem_type, R.id.txv_stockActivityItem_income};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portfolio);
+        setContentView(R.layout.activity_in_stock);
+
 
         initialization();
         initListView();
@@ -91,7 +82,6 @@ public class portfolioActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-
         futuresPrice.put("大台指近一", 0);
         futuresPrice.put("大台指近二", 0);
         futuresPrice.put("小台指近一", 0);
@@ -106,17 +96,16 @@ public class portfolioActivity extends AppCompatActivity {
         urlList.put("小台指近二", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WMT%40");
         urlList.put("金融期近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTF%26");
         urlList.put("電子期近一", "https://tw.screener.finance.yahoo.net/future/q?type=tick&perd=1m&mkt=01&sym=WTE%26");
-
     }
 
     private void initListView(){
-        txv_portfolioRenewTime = findViewById(R.id.txv_portfolioRenewTime);
-        list_portfolioList = findViewById(R.id.list_portfolioList);
+        txv_inStockRenewTime = findViewById(R.id.txv_inStockRenewTime);
+        list_inStockList = findViewById(R.id.list_inStockList);
         datalist = new LinkedList<>();
-        adapter = new SimpleAdapter(this, datalist, R.layout.item_portfolioitem, from, to);
-        list_portfolioList.setAdapter(adapter);
+        adapter = new SimpleAdapter(this, datalist, R.layout.item_instockitem, from, to);
+        list_inStockList.setAdapter(adapter);
 
-        list_portfolioList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        list_inStockList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("zha", datalist.get((int)id).toString());
@@ -141,7 +130,7 @@ public class portfolioActivity extends AppCompatActivity {
     private void showDetails(HashMap<String, String> data){
         Log.d("zha", data.toString());
         String content = "委託：" +data.get("type") + " " +data.get("ticker")+"\n"+"成交數："+data.get("lots")+"\n"+data.get("detail");
-        new AlertDialog.Builder(portfolioActivity.this)
+        new AlertDialog.Builder(InStockActivity.this)
                 .setTitle(data.get("id") + " 細項")
                 .setMessage(content)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -175,13 +164,13 @@ public class portfolioActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
                     Log.d("zha", "onResponse"+myResponse);
-                    portfolioActivity.this.runOnUiThread(new Runnable() {
+                    InStockActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 Calendar mCal = Calendar.getInstance();
                                 CharSequence s = DateFormat.format("MM-dd kk:mm", mCal.getTime());    // kk:24小時制, hh:12小時制
-                                txv_portfolioRenewTime.setText("更新時間："+s);
+                                txv_inStockRenewTime.setText("更新時間："+s);
 
                                 JSONObject data = new JSONObject(myResponse);
                                 Log.d("zha", data.length()+"");
@@ -194,7 +183,7 @@ public class portfolioActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Log.d("zha", "failed myResponse");
-                                txv_portfolioRenewTime.setText("回傳格式出錯");
+                                txv_inStockRenewTime.setText("回傳格式出錯");
                                 FLAG_RENEW_ITEM_PERMISSION = false;
                             }
                         }
@@ -223,7 +212,7 @@ public class portfolioActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String myResponse = response.body().string();
-                    portfolioActivity.this.runOnUiThread(new Runnable() {
+                    InStockActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 //                            昨收 129  當盤漲幅 185
@@ -272,24 +261,24 @@ public class portfolioActivity extends AppCompatActivity {
 
     public void addElementToPortfolioList(JSONObject data, String name) throws JSONException {
         Log.d("zha", "11112");
-        portfolioActivity.this.runOnUiThread(new Runnable() {
+        InStockActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
                     if (Math.abs(data.getInt("Lots"))>0)
                     {
-                        HashMap<String, String> h_portfolio = new HashMap<>();
+                        HashMap<String, String> h_inStock = new HashMap<>();
                         Log.d("zha", data.toString());
                         Log.d("zha", name);
 
-                        h_portfolio.put(from[0], name);
-                        h_portfolio.put(from[1], futuresPrice.get(name).toString());
-                        h_portfolio.put(from[2], data.getString("Average_Price"));
-                        h_portfolio.put(from[3], String.valueOf(Math.abs(data.getInt("Lots"))));
+                        h_inStock.put(from[0], name);
+                        h_inStock.put(from[1], futuresPrice.get(name).toString());
+                        h_inStock.put(from[2], data.getString("Average_Price"));
+                        h_inStock.put(from[3], String.valueOf(Math.abs(data.getInt("Lots"))));
                         if (data.getInt("Lots") > 0) {
-                            h_portfolio.put(from[4], "買");
+                            h_inStock.put(from[4], "買");
                         } else {
-                            h_portfolio.put(from[4], "賣");
+                            h_inStock.put(from[4], "賣");
                         }
                         double income = 0;
                         if ((Float)futuresPrice.get(name) > 0){
@@ -304,10 +293,10 @@ public class portfolioActivity extends AppCompatActivity {
                         else if (name.equals("金融期近一")){
                             income*=1000;
                         }
-                        h_portfolio.put(from[5], String.valueOf(income));
+                        h_inStock.put(from[5], String.valueOf(Math.round(income)));
 
-                        datalist.add(h_portfolio);
-                        Log.d("zha", h_portfolio.toString());
+                        datalist.add(h_inStock);
+                        Log.d("zha", h_inStock.toString());
                         adapter.notifyDataSetInvalidated();
                     }
                 } catch (JSONException e) {
@@ -326,14 +315,14 @@ public class portfolioActivity extends AppCompatActivity {
 
     public void clickTrading(View view) {
         if (activityFrom.equals("StockActivity")){
-            Intent intent = new Intent(portfolioActivity.this, StockActivity.class);
+            Intent intent = new Intent(InStockActivity.this, StockActivity.class);
             intent.putExtra("user", user);
             intent.putExtra("password", password);
             startActivityForResult(intent, 1);
             clickClose(view);
         }
         else if (activityFrom.equals("TradingFuturesActivity")){
-            Intent intent = new Intent(portfolioActivity.this, TradingFuturesActivity.class);
+            Intent intent = new Intent(InStockActivity.this, TradingFuturesActivity.class);
             intent.putExtra("user", user);
             intent.putExtra("password", password);
             startActivityForResult(intent, 1);
@@ -345,7 +334,7 @@ public class portfolioActivity extends AppCompatActivity {
     }
 
     public void clickOrder(View view) {
-        Intent intent = new Intent(portfolioActivity.this, OrderActivity.class);
+        Intent intent = new Intent(InStockActivity.this, OrderActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         intent.putExtra("from", "TradingFuturesActivity");
@@ -354,7 +343,7 @@ public class portfolioActivity extends AppCompatActivity {
     }
 
     public void clickDetail(View view) {
-        Intent intent = new Intent(portfolioActivity.this, DetailsActivity.class);
+        Intent intent = new Intent(InStockActivity.this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivity(intent);

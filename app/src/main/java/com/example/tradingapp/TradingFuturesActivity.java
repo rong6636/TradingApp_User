@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.SpanWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -411,7 +413,9 @@ public class TradingFuturesActivity extends AppCompatActivity {
 
     private void connectSeverTradingFutures(String orderType) {
         OkHttpClient client = new OkHttpClient();
-        String parameter = "user="+user+"&password="+password+"&type="+orderType+"&market=twFutures"+"&ticker="+futuresList[currentFuturesIndex]+"&price="+orderPrice+"&lot="+orderLot+"&time="+2118+"&name="+futuresList[currentFuturesIndex];
+        Calendar mCal = Calendar.getInstance();
+        CharSequence s = DateFormat.format("MM-dd kk:mm:ss", mCal.getTime());    // kk:24小時制, hh:12小時制
+        String parameter = "user="+user+"&password="+password+"&type="+orderType+"&market=twFutures"+"&ticker="+futuresList[currentFuturesIndex]+"&price="+orderPrice+"&lot="+orderLot+"&time="+s+"&name="+futuresList[currentFuturesIndex];
         String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?"+parameter;
         Log.d("zha", url);
         Request request = new Request.Builder()
@@ -576,6 +580,10 @@ public class TradingFuturesActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             connectSeverTradingFutures("多");
                         }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) { }
                     }).show();
         }
         else{
@@ -584,8 +592,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
                     .setMessage("無法委託")
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     }).show();
         }
 
@@ -608,9 +615,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("zha", "取消?");
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }else{
@@ -624,9 +629,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("zha", "取消?");
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }
@@ -642,10 +645,17 @@ public class TradingFuturesActivity extends AppCompatActivity {
     }
 
     public void clickPortfolio(View view) {
-        Intent intent = new Intent(TradingFuturesActivity.this, portfolioActivity.class);
+        Intent intent = new Intent(TradingFuturesActivity.this, InStockActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivity(intent);
         close(view);
+    }
+
+    public void clickPrice(View view) {
+        TextView price = view.findViewById(view.getId());
+        Log.d("zha", price.getText().toString());
+        orderPrice = Float.valueOf(price.getText().toString());
+        txv_futures_orderPriceChoose.setText(String.format("%.02f", Float.valueOf(orderPrice)));
     }
 }

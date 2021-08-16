@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Vibrator;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -394,7 +396,10 @@ public class StockActivity extends AppCompatActivity {
 
     private void connectSeverTradingStock(String orderType) {
         OkHttpClient client = new OkHttpClient();
-        String parameter = "user=" + USER + "&password=" + PASSWORD + "&type=" + orderType + "&market=twStocks" + "&ticker=" + orderStock + "&price=" + orderPrice + "&lot=" + orderLot + "&time=" + 2118 + "&name=" + orderName;
+        Calendar mCal = Calendar.getInstance();
+        CharSequence s = DateFormat.format("MM-dd kk:mm:ss", mCal.getTime());    // kk:24小時制, hh:12小時制
+
+        String parameter = "user=" + USER + "&password=" + PASSWORD + "&type=" + orderType + "&market=twStocks" + "&ticker=" + orderStock + "&price=" + orderPrice + "&lot=" + orderLot + "&time=" + s + "&name=" + orderName;
         String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?" + parameter;
         Log.d("zha", url);
         Request request = new Request.Builder()
@@ -580,9 +585,7 @@ public class StockActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("zha", "取消?");
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }else{
@@ -591,8 +594,7 @@ public class StockActivity extends AppCompatActivity {
                     .setMessage("無法委託")
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }
@@ -616,9 +618,7 @@ public class StockActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("zha", "取消?");
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }else{
@@ -627,8 +627,7 @@ public class StockActivity extends AppCompatActivity {
                     .setMessage("無法委託")
                     .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                        public void onClick(DialogInterface dialog, int which) { }
                     })
                     .show();
         }
@@ -653,10 +652,18 @@ public class StockActivity extends AppCompatActivity {
     }
 
     public void clickPortfolio(View view) {
-        Intent intent = new Intent(StockActivity.this, portfolioActivity.class);
+        Intent intent = new Intent(StockActivity.this, InStockActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
         startActivity(intent);
         close(view);
+    }
+
+    public void clickPrice(View view) {
+        TextView price = view.findViewById(view.getId());
+        Log.d("zha", price.getText().toString());
+        orderPrice = Float.valueOf(price.getText().toString());
+        txv_stock_orderPriceChoose.setText(String.format("%.02f", Float.valueOf(orderPrice)));
+        txv_stcok_showBudget.setText("大約 TWD"+String.format("%.00f", orderPrice*orderLot*1000));
     }
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TalkActivity"
+    android:background="@color/background_primer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38"
+        android:background="@color/background_primer"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_futures_close"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_30"
+            android:onClick="clickClose"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btn_futures_trading"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="觀也"
+            android:background="#1d2333"
+            android:textColor="@color/background_w"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:onClick="clickTalk"
+            />
+
+        <Button
+            android:id="@+id/btn_futures_orderlsit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="膾也"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:onClick="clickMostActive"
+            />
+
+        <Button
+            android:id="@+id/btn_futures_investments"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="XX"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_20"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:onClick="clickTalk"
+            />
+
+        <Button
+            android:id="@+id/btn_futures_account"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="XX"
+            android:background="#1d2333"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_20"
+            android:onClick="clickTalk"
+            android:gravity="center"
+            android:layout_gravity="center"
+
+            />
+
+    </LinearLayout >
+
+
+
+</LinearLayout>

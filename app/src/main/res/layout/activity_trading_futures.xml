@@ -196,7 +196,9 @@
                         android:singleLine="true"
                         android:textSize="@dimen/sp_30"
                         android:textColor="#FFF"
-                        android:background="#05080c"/>
+                        android:background="#05080c"
+                        android:onClick="clickPrice"
+                        />
 
                     <TextView
                         android:id="@+id/txv_futures_titleChange"
@@ -252,15 +254,23 @@
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
-                        <TextView
-                            android:id="@+id/txv_futures_total_bid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="@dimen/sp_18"
-                            android:textColor="#FFF"
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            />
+                            android:layout_gravity="center"
+                            android:background="#777">
+                            <TextView
+                                android:id="@+id/txv_futures_total_bid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="@dimen/sp_18"
+                                android:textColor="#FFF"
+                                android:background="#05080c"
+                                />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -277,25 +287,38 @@
                             android:gravity="right"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_bidlot_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginHorizontal="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_bidprcie_1"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#01937C"
-                                android:gravity="center"
-                                />
+                                android:layout_margin="@dimen/dp_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidlot_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidprcie_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -304,79 +327,38 @@
                             android:gravity="right"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_bidlot_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginHorizontal="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_bidprcie_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#01937C"
-                                android:gravity="center"
-                                />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:layout_weight="1"
-                            >
-                            <TextView
-                                android:id="@+id/txv_futures_bidlot_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginHorizontal="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_bidprcie_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#01937C"
-                                android:gravity="center"
-                                />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:layout_weight="1"
-                            >
-                            <TextView
-                                android:id="@+id/txv_futures_bidlot_4"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_bidprcie_4"
+                                android:layout_margin="@dimen/dp_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidlot_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#01937C"
-                                android:gravity="center"
-                                />
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidprcie_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -385,25 +367,121 @@
                             android:gravity="right"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_bidlot_5"
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidlot_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginHorizontal="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_bidprcie_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidprcie_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidlot_4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#01937C"
-                                android:gravity="center"
-                                />
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidprcie_4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidlot_5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_bidprcie_5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
                         </LinearLayout>
 
 
@@ -434,15 +512,23 @@
                             android:textColor="#FFF"
                             android:gravity="center"
                             />
-                        <TextView
-                            android:id="@+id/txv_futures_total_ask"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textSize="@dimen/sp_18"
-                            android:textColor="#FFF"
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            />
+                            android:layout_gravity="center"
+                            android:background="#777">
+                            <TextView
+                                android:id="@+id/txv_futures_total_ask"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="@dimen/sp_18"
+                                android:textColor="#FFF"
+                                android:background="#05080c"
+                                />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -458,25 +544,37 @@
                             android:gravity="left"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_askprcie_1"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#AA2B1D"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_asklot_1"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_askprcie_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_asklot_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
                                 />
+                        </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -486,25 +584,38 @@
                             android:gravity="left"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_askprcie_2"
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#AA2B1D"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_asklot_2"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_askprcie_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_asklot_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
                                 />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -514,25 +625,38 @@
                             android:gravity="left"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_askprcie_3"
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#AA2B1D"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_asklot_3"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_askprcie_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_asklot_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
                                 />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -542,25 +666,37 @@
                             android:gravity="left"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_askprcie_4"
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#AA2B1D"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_asklot_4"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_askprcie_4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_asklot_4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"/>
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -570,25 +706,38 @@
                             android:gravity="left"
                             android:layout_weight="1"
                             >
-                            <TextView
-                                android:id="@+id/txv_futures_askprcie_5"
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="0.00"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#AA2B1D"
-                                android:gravity="center"
-                                />
-                            <TextView
-                                android:id="@+id/txv_futures_asklot_5"
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_askprcie_5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="101.00"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#AA2B1D"
+                                    android:gravity="center"
+                                    android:background="#05080c"
+                                    android:onClick="clickPrice"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/dp_5"
-                                android:text="0"
-                                android:textSize="@dimen/sp_14"
-                                android:textColor="#FFF"
-                                android:gravity="center"
-                                />
+                                android:background="#777">
+                                <TextView
+                                    android:id="@+id/txv_futures_asklot_5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:text="1000"
+                                    android:textSize="@dimen/sp_14"
+                                    android:textColor="#FFF"
+                                    android:background="#05080c"
+                                    />
+                            </LinearLayout>
                         </LinearLayout>
 
 
@@ -605,7 +754,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_gravity="center"
-                android:text="2021-07-26 08:00:00"
+                android:text="2021-01-01 08:00:00"
                 android:textSize="@dimen/sp_12"
                 android:textColor="#FFF"/>
 

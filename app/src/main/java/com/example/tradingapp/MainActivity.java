@@ -1,10 +1,12 @@
 package com.example.tradingapp;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edt_singin_inputuser, edt_singin_inputpw ;
     private TextView txv_loginlog;
     private Button btn_MianLogin;
+    public String APP_VERSION = "0.1.6";
     SharedPreferences pref;
 
     @Override
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initalization();
+        getAnnouncement();
 
     }
 
@@ -61,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         pref = getSharedPreferences("user_password", MODE_PRIVATE);
         btn_MianLogin = findViewById(R.id.btn_MianLogin);
         takeUserAndPassword();
+
+        txv_loginlog.setText("v"+APP_VERSION);
     }
 
     public void signup(View view) {
@@ -130,6 +137,67 @@ public class MainActivity extends AppCompatActivity {
                    } catch (Exception e) {
                        txv_loginlog.setText("ERROR _MainActivity");
                    }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        txv_loginlog.setText("與伺服器連線失敗，請檢查網路狀態\n若手機網路沒問題，請稍等片刻");
+                    }
+                });
+            }
+        });
+    }
+
+
+    public void getAnnouncement() {
+        String url_replit = "https://tradingappserver.masterrongwu.repl.co/announcement";
+        // 建立 OkHttpClient
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        // 建立 Request，設定連線資訊
+        Request request = new Request.Builder()
+                .url(url_replit)
+                .build();
+        // 建立 Call
+        Call call = client.newCall(request);
+
+        // 執行 Call 連線
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("zha",myResponse);
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject an = new JSONObject(myResponse);
+                                JSONObject renew_version = an.getJSONObject("renew_version");
+
+                                if (renew_version.getString("version").equals(APP_VERSION) != true){
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle(renew_version.getString("actionTitle"))
+                                            .setMessage(renew_version.getString("actionContents"))
+                                            .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {}
+                                            })
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                }
+                else{
+                    txv_loginlog.setText("ERROR getAnnouncement");
+                }
             }
 
             @Override

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_w"
-    tools:context=".portfolioActivity">
+    tools:context=".InStockActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/btn_portfolio_close"
+            android:id="@+id/btn_inStock_close"
             android:layout_width="30dp"
             android:layout_height="@dimen/dp_38"
             android:text="X"
@@ -29,7 +29,7 @@
             />
 
         <Button
-            android:id="@+id/btn_portfolio_trading"
+            android:id="@+id/btn_inStock_trading"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
@@ -43,7 +43,7 @@
             />
 
         <Button
-            android:id="@+id/btn_portfolio_detailslsit"
+            android:id="@+id/btn_inStock_detailslsit"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
@@ -57,7 +57,7 @@
             />
 
         <Button
-            android:id="@+id/btn_portfolio_investments"
+            android:id="@+id/btn_inStock_investments"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
@@ -70,7 +70,7 @@
             android:onClick="clickDetail"
             />
         <Button
-            android:id="@+id/btn_portfolio_account"
+            android:id="@+id/btn_inStock_account"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
@@ -107,10 +107,10 @@
 
             </LinearLayout>
             <TextView
-                android:id="@+id/txv_portfolioRenewTime"
+                android:id="@+id/txv_inStockRenewTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="更新時間: 01-01 00:00"
+                android:text="更新時間: 連接中..."
                 android:textSize="@dimen/sp_16"
                 android:textColor="#FFF"
                 android:layout_gravity="center"
@@ -175,7 +175,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/list_portfolioList"
+                android:id="@+id/list_inStockList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

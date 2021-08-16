@@ -126,6 +126,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void run() {
                 while (FLAG_GETORDER_PERMISSION) {
                     connectSeverGetOrder();
+                    txv_detailsRenewTime.setText("更新時間： 連線中...");
                     Log.d("zha", "getDetailsThread do end");
                     try {
                         Thread.sleep(10000 + (int) (Math.random() * 110000));
@@ -221,15 +222,16 @@ public class DetailsActivity extends AppCompatActivity {
 
     public void addElementToDetailsList(JSONObject details, String id, String dayTime) throws JSONException, ParseException {
         Log.d("zha", "11112");
-        Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(CompareDaysOfTwo(dayTime)));
-        Log.d("zha", "CompareDaysOfTwo return "+ String.valueOf(irangeTime[currentRangeTimeIndex]));
         if (CompareDaysOfTwo(dayTime) < irangeTime[currentRangeTimeIndex]){
             HashMap<String, String> h_details = new HashMap<>();
             Log.d("zha", details.toString());
 
             h_details.put(from[0], dayTime);
-            h_details.put(from[1], details.getString("ticker"));
+            Log.d("zha", details.toString());
+            h_details.put(from[1], details.getString("name"));
+            Log.d("zha", details.toString());
             h_details.put(from[2], details.getString("type"));
+            Log.d("zha", details.toString());
             h_details.put(from[3], String.valueOf(details.getDouble("a_p")));
             h_details.put(from[4], String.valueOf(details.getInt("totalLots")));
             h_details.put(from[5], String.valueOf(details.getInt("income")));
@@ -258,7 +260,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void showDetails(HashMap<String, String> data){
         Log.d("zha", data.toString());
-        String content = "委託：" +data.get("type") + " " +data.get("ticker")+"\n"+"成交數："+data.get("lots")+"\n"+data.get("detail");
+        String content = "委託：" +data.get("type") + " " +data.get("ticker")+"\n"+ "委託時間：" +data.get("time") + "\n" +"成交數："+data.get("lots")+"\n"+data.get("detail");
         new AlertDialog.Builder(DetailsActivity.this)
                 .setTitle(data.get("id") + " 細項")
                 .setMessage(content)
@@ -311,7 +313,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     public void clickPortfolio(View view) {
 
-        Intent intent = new Intent(DetailsActivity.this, portfolioActivity.class);
+        Intent intent = new Intent(DetailsActivity.this, InStockActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivity(intent);

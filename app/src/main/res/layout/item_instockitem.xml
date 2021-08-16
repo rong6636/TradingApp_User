@@ -15,7 +15,7 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_portfolioItem_name"
+            android:id="@+id/txv_stockActivityItem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="大台指近一"
@@ -37,7 +37,7 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_portfolioItem_price"
+            android:id="@+id/txv_stockActivityItem_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="99999.00"
@@ -47,7 +47,7 @@
             android:gravity="center"
             />
         <TextView
-            android:id="@+id/txv_portfolioItem_ap"
+            android:id="@+id/txv_stockActivityItem_ap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10000.00"
@@ -69,7 +69,7 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_portfolioItem_lot"
+            android:id="@+id/txv_stockActivityItem_lot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5"
@@ -80,7 +80,7 @@
             />
 
         <TextView
-            android:id="@+id/txv_portfolioItem_type"
+            android:id="@+id/txv_stockActivityItem_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多"
@@ -103,7 +103,7 @@
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/txv_portfolioItem_income"
+            android:id="@+id/txv_stockActivityItem_income"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

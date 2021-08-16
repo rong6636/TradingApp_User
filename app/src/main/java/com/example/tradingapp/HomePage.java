@@ -282,7 +282,14 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void clickPortfolio(View view) {
-        Intent intent = new Intent(HomePage.this, portfolioActivity.class);
+        Intent intent = new Intent(HomePage.this, InStockActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    public void clickTalk(View view) {
+        Intent intent = new Intent(HomePage.this, TalkActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivity(intent);
