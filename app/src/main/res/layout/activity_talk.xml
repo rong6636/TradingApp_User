@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TalkActivity"
-    android:background="@color/background_primer">
+    android:orientation="vertical"
+    android:background="@color/bg_primary"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_38"
-        android:background="@color/background_primer"
+        android:layout_height="@dimen/dp_40"
         android:orientation="horizontal"
         >
         <Button
@@ -19,74 +20,97 @@
             android:layout_width="@dimen/dp_30"
             android:layout_height="match_parent"
             android:text="X"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_30"
             android:onClick="clickClose"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_trading"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="40dp"
-            android:text="觀也"
-            android:background="#1d2333"
-            android:textColor="@color/background_w"
+            android:layout_height="@dimen/dp_40"
+            android:text="動態"
+            android:textColor="@color/text_primary_b"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickTalk"
+            android:background="@color/bg_primary_variant_bright"
             />
 
         <Button
             android:id="@+id/btn_futures_orderlsit"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/dp_40"
             android:text="膾也"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickMostActive"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_investments"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/dp_40"
             android:text="XX"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickTalk"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_account"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/dp_40"
             android:text="XX"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:onClick="clickTalk"
             android:gravity="center"
             android:layout_gravity="center"
-
+            android:background="@color/bg_primary"
             />
 
     </LinearLayout >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@color/bg_primary_variant_bright"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用戶動態"
+            android:textColor="#FFF"
+            android:textSize="@dimen/sp_22"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
 
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lsv_talk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:stackFromBottom="true"
+        >
+
+    </ListView>
 
 
 </LinearLayout>

@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".OrderActivity"
     android:orientation="vertical"
-    android:background="@color/background_w"
+    android:background="@color/bg_primary"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_38"
-        android:background="@color/background_primer"
         android:orientation="horizontal"
         >
         <Button
@@ -20,12 +19,12 @@
             android:layout_width="30dp"
             android:layout_height="@dimen/dp_38"
             android:text="X"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_28"
             android:onClick="close"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
             />
 
         <Button
@@ -34,12 +33,12 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="下單"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:onClick="clickTrading"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
             />
 
         <Button
@@ -48,12 +47,12 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="委託"
-            android:background="#1d2333"
-            android:textColor="@color/background_w"
+            android:textColor="@color/text_primary_b"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary_variant_bright"
             />
 
         <Button
@@ -62,12 +61,12 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="明細"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickDetail"
+            android:background="@color/bg_primary"
             />
         <Button
             android:id="@+id/btn_stock_account"
@@ -75,12 +74,12 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="庫存"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:onClick="clickPortfolio"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
 
             />
 
@@ -91,13 +90,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background_d"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/background_w2"
+            android:background="@color/bg_primary_variant_bright"
             >
             <TextView
                 android:id="@+id/txv_orderTitle"
@@ -126,15 +124,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_w"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
-                android:background="@color/background_primer"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/bg_primary_variant_dark"
+                >
 
                 <TextView
                     android:layout_width="0dp"
@@ -143,7 +141,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="狀態"
-                    android:textColor="@color/text_2"
+                    android:textColor="@color/text_primary_b"
                     android:textSize="@dimen/sp_19" />
 
                 <TextView
@@ -153,7 +151,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="名稱"
-                    android:textColor="@color/text_2"
+                    android:textColor="@color/text_primary_b"
                     android:textSize="@dimen/sp_19" />
 
                 <TextView
@@ -163,7 +161,7 @@
                     android:layout_weight="2"
                     android:gravity="center"
                     android:text="委價/均價"
-                    android:textColor="@color/text_2"
+                    android:textColor="@color/text_primary_b"
                     android:textSize="@dimen/sp_19" />
 
                 <TextView
@@ -173,7 +171,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="數量"
-                    android:textColor="@color/text_2"
+                    android:textColor="@color/text_primary_b"
                     android:textSize="@dimen/sp_19" />
             </LinearLayout>
 

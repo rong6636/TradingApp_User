@@ -7,8 +7,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/background_primer"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/bg_primary_variant_dark"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,11 +41,11 @@
                 android:layout_marginRight="8dp"
                 android:padding="5dp"
                 android:layout_marginVertical="8dp"
-                android:background="#FFF"
                 android:hint="帳號"
                 android:textColor="#999"
                 android:textSize="20dp"
                 android:singleLine="true"
+                android:background="#FFF"
                 />
 
             <EditText
@@ -56,11 +57,11 @@
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginVertical="8dp"
-                android:background="#FFF"
                 android:hint="密碼"
                 android:textColor="#999"
                 android:textSize="20dp"
                 android:singleLine="true"
+                android:background="#FFF"
                 />
 
         </LinearLayout>
@@ -78,9 +79,9 @@
                 android:layout_weight="1"
                 android:text="註冊"
                 android:textSize="20dp"
-                android:background="#0000"
                 android:textColor="#FFF"
                 android:onClick="signup"
+                android:background="@color/bg_primary_variant_dark"
                 />
             <Button
                 android:layout_width="0dp"
@@ -88,9 +89,9 @@
                 android:layout_weight="1"
                 android:text="忘記密碼"
                 android:textSize="20dp"
-                android:background="#0000"
                 android:textColor="#FFF"
                 android:onClick="forgetPassword"
+                android:background="@color/bg_primary_variant_dark"
                 />
             <Button
                 android:id="@+id/btn_remember"
@@ -99,9 +100,9 @@
                 android:layout_weight="1"
                 android:text="記住密碼"
                 android:textSize="20dp"
-                android:background="#0000"
                 android:textColor="#FFF"
                 android:onClick="rememberPassword"
+                android:background="@color/bg_primary_variant_dark"
             />
 
         </LinearLayout>
@@ -113,9 +114,8 @@
             android:textSize="20dp"
             android:layout_marginTop="20dp"
             android:onClick="login"
-            android:background="@drawable/button_drawable"
             android:textColor="#FFF"
-
+            android:background="@drawable/button_drawable"
             />
         <TextView
             android:id="@+id/txv_loginlog"
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
             android:text="v.1.0.0"
-            android:textColor="#005cb2"
+            android:textColor="@color/bg_secondary_variant_bright"
             android:textSize="18dp"
             android:gravity="end"
             />

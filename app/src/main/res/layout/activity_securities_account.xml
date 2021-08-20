@@ -7,23 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".SecuritiesAccountActivity"
     android:orientation="vertical"
-    android:background="@color/background_w"
+    android:background="@color/bg_primary"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:background="#1d2333"
         >
         <Button
             android:id="@+id/btn_close"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:text="O"
-            android:background="#1d2333"
             android:layout_alignParentLeft="true"
             android:textColor="#FFF"
             android:onClick="clickClose"
+            android:background="@color/bg_primary"
             />
         <TextView
             android:id="@+id/txv_accountName"
@@ -45,7 +44,8 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        android:background="@color/background_d"
+
+        android:background="#000"
         >
 
         <TextView
@@ -263,7 +263,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        android:background="@color/background_d"
+        android:background="#000"
         >
 
         <TextView
@@ -288,7 +288,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        android:background="@color/background_d"
+        android:background="#000"
         >
 
         <TextView

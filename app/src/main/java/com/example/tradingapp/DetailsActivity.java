@@ -102,9 +102,7 @@ public class DetailsActivity extends AppCompatActivity {
         adapterRangeTime = new ArrayAdapter<>(DetailsActivity.this, android.R.layout.simple_spinner_dropdown_item, rangeTime);
         Log.d("zha", "112");
         spr_details_choiceRange = findViewById(R.id.spr_details_choiceRange);
-        Log.d("zha", "113");
         spr_details_choiceRange.setAdapter(adapterRangeTime);
-        Log.d("zha", "114");
         spr_details_choiceRange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

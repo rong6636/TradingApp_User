@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/dp_5"
+    android:background="@color/bg_primary"
     >
 
     <LinearLayout
@@ -10,7 +12,6 @@
         android:layout_weight="2"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background_d"
         android:layout_marginHorizontal="0.5dp"
         android:gravity="center"
         >
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="大台指近一"
-            android:textSize="@dimen/sp_19"
+            android:textSize="@dimen/sp_17"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -32,7 +33,6 @@
         android:layout_weight="2"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background_d"
         android:layout_marginHorizontal="0.5dp"
         android:gravity="center"
         >
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="99999.00"
-            android:textSize="@dimen/sp_18"
+            android:textSize="@dimen/sp_17"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10000.00"
-            android:textSize="@dimen/sp_18"
+            android:textSize="@dimen/sp_17"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -64,7 +64,6 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background_d"
         android:layout_marginHorizontal="0.5dp"
         android:gravity="center"
         >
@@ -73,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5"
-            android:textSize="@dimen/sp_19"
+            android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -84,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="多"
-            android:textSize="@dimen/sp_19"
+            android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
@@ -98,7 +97,6 @@
         android:layout_weight="2"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/background_d"
         android:layout_marginHorizontal="0.5dp"
         android:gravity="center"
         >
@@ -108,11 +106,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="-61,000,000"
-            android:textSize="@dimen/sp_19"
+            android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="@color/background_d"
             android:layout_marginHorizontal="0.5dp"
             />
     </LinearLayout>

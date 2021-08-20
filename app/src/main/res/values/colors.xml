@@ -9,11 +9,29 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grainer_">#c30000</color>
     <color name="loser_">#00b248</color>
-    <color name="background_primer">#1d2333</color>
-    <color name="background_w">#63ccff</color>
-    <color name="background_w2">#234</color>
-    <color name="background_d">#05080c</color>
-    <color name="text_1">#2196f3</color>
-    <color name="text_2">#84ffff</color>
+
+    <color name="primary_black">#05080c</color>
+    <color name="primary_white">#FFF</color>
+
+    <color name="bg_primary">#141424</color>
+    <color name="bg_primary_variant_dark">#1A203B</color>
+    <color name="bg_primary_variant_bright">#252D52</color>
+    <color name="bg_secondary">#0C78E4</color>
+    <color name="bg_secondary_text">#00CFF5</color>
+    <color name="bg_secondary_variant_bright">#1e88e5</color>
+
+    <color name="text_primary">#1e88e5</color>
+    <color name="text_primary_b">#84ffff</color>
+    <color name="text_primary_d">#00CFF5</color>
+    <color name="text_primary_white">#DDD</color>
+    <color name="text_primary_black">#05080c</color>
+    <color name="text_primary_dark">#333</color>
+
+
+    <color name="qqwwee_1">#2C3459</color>
+    <color name="qqwwee_2">#222342</color>
+    <color name="qqwwee_3">#1476D9</color>
+    <color name="qqwwee_4">#17182C</color>
+    <color name="qqwwee_5">#133362</color>
 
 </resources>

@@ -7,30 +7,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AccountActivity"
+    android:background="@color/bg_primary"
     >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/background_primer"
         >
         <Button
             android:id="@+id/btn_close"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:text="X"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="30sp"
             android:onClick="clickClose"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
             />
         <TextView
             android:id="@+id/txv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="帳號中心"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_25"
             android:layout_centerInParent="true"
@@ -42,15 +41,16 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/background_primer"
-        android:src="@drawable/avatar_level_1a" />
+        android:src="@drawable/avatar_level_1a"
+        android:background="@color/bg_primary_variant_bright"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/background_primer"
         android:orientation="vertical"
         android:gravity="top"
+        android:background="@color/bg_primary_variant_bright"
         >
         <LinearLayout
             android:layout_width="wrap_content"
@@ -63,18 +63,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/dp_10"
                 android:editable="false"
                 android:focusable="false"
                 android:inputType="textPersonName"
                 android:textColor="#FFF"
-                android:textSize="@dimen/sp_25" />
+                android:textSize="@dimen/sp_25"
+                android:background="@color/bg_primary_variant_bright"
+                />
 
             <Button
                 android:id="@+id/btn_rename"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:onClick="clickRename" />
+                android:onClick="clickRename"
+                />
 
         </LinearLayout>
 
@@ -94,7 +98,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_18"
             android:textColor="#FFF"
-            android:text="v:0.0.1"
+            android:text="..."
             android:layout_gravity = "right"
             />
 
@@ -104,8 +108,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/background_primer"
         android:orientation="horizontal"
+        android:background="@color/bg_primary"
         >
 
 

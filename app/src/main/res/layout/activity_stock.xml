@@ -6,109 +6,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_w"
+    android:background="@color/bg_primary"
     tools:context=".StockActivity"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_38"
-        android:background="@color/background_primer"
         android:orientation="horizontal"
         >
         <Button
             android:id="@+id/btn_futures_close"
-            android:layout_width="30dp"
+            android:layout_width="@dimen/dp_30"
             android:layout_height="match_parent"
             android:text="X"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_30"
             android:onClick="close"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_trading"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="下單"
-            android:background="#1d2333"
-            android:textColor="@color/background_w"
+            android:textColor="@color/text_primary_b"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
+            android:background="@color/bg_primary_variant_bright"
             />
 
         <Button
             android:id="@+id/btn_futures_orderlsit"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="委託"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickOrder"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_investments"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="明細"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickDetail"
+            android:background="@color/bg_primary"
             />
 
         <Button
             android:id="@+id/btn_futures_account"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_38"
             android:text="庫存"
-            android:background="#1d2333"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickPortfolio"
+            android:background="@color/bg_primary"
             />
 
     </LinearLayout >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         android:layout_weight="1"
         android:orientation="vertical"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dp_0"
             android:layout_weight="2"
-            android:background="#05080c"
+            android:background="@color/primary_black"
             android:orientation="vertical"
             android:layout_marginBottom="@dimen/dp_0_5"
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:layout_weight="2"
                 android:orientation="horizontal"
-                android:background="#234">
+                android:background="@color/bg_primary_variant_bright"
+                >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -119,24 +119,24 @@
 
                 <Button
                     android:id="@+id/btn_stock_changeStockType"
-                    android:layout_width="@dimen/dp_50"
-                    android:layout_height="@dimen/dp_50"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
                     android:textSize="@dimen/sp_24"
                     android:text="市"
                     android:textColor="#FFF"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:onClick="changeStockType"
+                    android:background="@drawable/button_drawable"
                     />
                 <EditText
                     android:id="@+id/edt_stock_searchstock"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="2330"
                     android:textSize="@dimen/dp_25"
                     android:textColor="#CCC"
-                    android:background="#345"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:singleLine="true"
@@ -146,12 +146,13 @@
                     android:id="@+id/btn_stock_searchstock"
                     android:layout_width="@dimen/dp_35"
                     android:layout_height="@dimen/dp_35"
-                    android:textSize="@dimen/sp_25"
-                    android:text="O"
+                    android:textSize="@dimen/sp_20"
+                    android:text="搜"
                     android:textColor="#FFF"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:onClick="searchStock"
+                    android:background="@drawable/button_drawable"
                     />
 
 
@@ -159,7 +160,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:layout_weight="3"
                 android:orientation="horizontal"
                 android:layout_margin="@dimen/dp_5"
@@ -169,7 +170,7 @@
 
                 <TextView
                     android:id="@+id/txv_stock_titleType"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -177,11 +178,11 @@
                     android:text="市"
                     android:textSize="25sp"
                     android:textColor="#FFF"
-                    android:background="#05080c"/>
+                    android:background="@color/primary_black"/>
 
                 <TextView
                     android:id="@+id/txv_stock_titleName"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -189,10 +190,10 @@
                     android:text="-"
                     android:textSize="@dimen/sp_30"
                     android:textColor="#FFF"
-                    android:background="#05080c"/>
+                    android:background="@color/primary_black"/>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -203,14 +204,14 @@
                         android:id="@+id/txv_stock_titlePrice"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:layout_height="0dp"
+                        android:layout_height="@dimen/dp_0"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:text="0.00"
                         android:singleLine="true"
                         android:textSize="@dimen/sp_34"
                         android:textColor="#FFF"
-                        android:background="#05080c"
+                        android:background="@color/primary_black"
                         android:onClick="clickPrice"/>
 
                     <TextView
@@ -222,7 +223,7 @@
                         android:text="▼▲0.00 (-0.00%)"
                         android:textSize="@dimen/sp_15"
                         android:textColor="#FFF"
-                        android:background="#05080c"/>
+                        android:background="@color/primary_black"/>
 
                 </LinearLayout>
 
@@ -232,9 +233,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dp_0"
             android:layout_weight="3"
-            android:background="#05080c"
+            android:background="@color/primary_black"
             android:orientation="vertical"
             android:gravity="center"
             >
@@ -246,7 +247,7 @@
                 >
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -281,7 +282,7 @@
                                 android:text="0"
                                 android:textSize="@dimen/sp_18"
                                 android:textColor="#FFF"
-                                android:background="#05080c"
+                                android:background="@color/primary_black"
                                 />
                         </LinearLayout>
 
@@ -314,7 +315,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                             <LinearLayout
@@ -329,7 +330,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#01937C"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                     />
                             </LinearLayout>
@@ -355,7 +356,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
 
@@ -371,7 +372,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#01937C"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"/>
                             </LinearLayout>
                         </LinearLayout>
@@ -396,7 +397,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                             <LinearLayout
@@ -411,7 +412,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#01937C"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                     />
                             </LinearLayout>
@@ -436,7 +437,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                             <LinearLayout
@@ -451,7 +452,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#01937C"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                     />
                             </LinearLayout>
@@ -477,7 +478,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                             <LinearLayout
@@ -492,7 +493,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#01937C"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                     />
                             </LinearLayout>
@@ -502,7 +503,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -536,7 +537,7 @@
                                 android:text="0"
                                 android:textSize="@dimen/sp_18"
                                 android:textColor="#FFF"
-                                android:background="#05080c"
+                                android:background="@color/primary_black"
                                 />
                         </LinearLayout>
                     </LinearLayout>
@@ -565,7 +566,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#AA2B1D"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                     />
                             </LinearLayout>
@@ -582,7 +583,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -606,7 +607,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#AA2B1D"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                 />
                             </LinearLayout>
@@ -624,7 +625,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -648,7 +649,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#AA2B1D"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                 />
                             </LinearLayout>
@@ -666,7 +667,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -690,7 +691,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#AA2B1D"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                 />
                             </LinearLayout>
@@ -708,7 +709,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -732,7 +733,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#AA2B1D"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     android:onClick="clickPrice"
                                 />
                             </LinearLayout>
@@ -750,7 +751,7 @@
                                     android:textSize="@dimen/sp_14"
                                     android:textColor="#FFF"
                                     android:gravity="center"
-                                    android:background="#05080c"
+                                    android:background="@color/primary_black"
                                     />
                             </LinearLayout>
                         </LinearLayout>
@@ -777,28 +778,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dp_0"
             android:layout_weight="2"
-            android:background="#05080c"
+            android:background="@color/primary_black"
             android:orientation="vertical"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="@dimen/dp_10"
             android:paddingVertical="@dimen/dp_5"
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_height="@dimen/dp_0"
+                android:layout_weight="4"
                 >
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_weight="7"
                     android:layout_height="wrap_content"
-                    android:background="#3871"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/dp_5"
-                    android:layout_marginEnd="@dimen/dp_5">
-                    >
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@color/bg_primary_variant_dark">
+
 
                     <TextView
                         android:id="@+id/txv_stock_orderPriceSub"
@@ -815,7 +816,7 @@
 
                     <TextView
                         android:id="@+id/txv_stock_orderPriceChoose"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="@dimen/dp_30"
                         android:layout_gravity="center"
                         android:layout_weight="1"
@@ -841,20 +842,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:background="#3871"
+                    android:background="@color/bg_primary_variant_dark"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/dp_5"
                     >
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:background="#3871"
                         android:orientation="horizontal"
                         android:layout_gravity="center">
 
@@ -873,7 +873,7 @@
 
                         <TextView
                             android:id="@+id/txv_stock_orderLotChoose"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/dp_0"
                             android:layout_weight="1"
                             android:layout_height="@dimen/dp_30"
                             android:text="1"
@@ -900,7 +900,6 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
             <TextView
@@ -910,18 +909,16 @@
                 android:text="約 TWD0"
                 android:textColor="#FFF"
                 android:textSize="@dimen/sp_20"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                />
+                android:gravity="center_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:layout_weight="3"
                 >
                 <Button
                     android:id="@+id/Btn_stock_buy"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_5"
@@ -935,7 +932,7 @@
 
                 <Button
                     android:id="@+id/Btn_stock_sell"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_5"

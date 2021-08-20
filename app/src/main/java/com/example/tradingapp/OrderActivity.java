@@ -45,7 +45,7 @@ public class OrderActivity extends AppCompatActivity {
     private ListView lis_orderList;
     private TextView txv_orderRenewTime;
     private LinkedList<HashMap<String, String>> datalist;
-    private String[] from = {"state", "name", "type", "orderPrice", "finalPrice", "lots", "id", "time"};
+    private String[] from = {"state", "name", "type", "orderPrice", "finalPrice", "lots", "id", "time", "cover_lots", "new_lots"};
     private int[] to = {R.id.btn_orderItem_del, R.id.txv_orderItem_name, R.id.txv_orderItem_type, R.id.txv_orderItem_orderPrice, R.id.txv_orderItem_finalPrice, R.id.txv_orderItem_lot, 945300, 945300};
 
     private String USER, PASSWORD, activityFrom;
@@ -94,8 +94,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void showOrderDetail(HashMap<String, String> data){
-        String content = "委託：" +data.get("type")+" "+data.get("name") + "\n當前狀態：" +data.get("state") + "\n"
-                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n"+ "委託時間：" +data.get("time") + "\n";
+        String content = "委託：" +data.get("type")+" "+data.get("name")+ "\n委託時間：" + data.get("time") + "\n當前狀態：" +data.get("state") + "\n"
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" + data.get("lots") + "\n"
+                + "已成交量：" +(Integer.valueOf(data.get("lots")) - Integer.valueOf(data.get("new_lots")) - Integer.valueOf(data.get("cover_lots"))) + "\n"
+                + "未成交量：" +(Integer.valueOf(data.get("new_lots")) + Integer.valueOf(data.get("cover_lots"))) + "\n";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("委託書號：" + data.get("id"))
                 .setMessage(content)
@@ -277,6 +279,7 @@ public class OrderActivity extends AppCompatActivity {
     public void addElementToOrderList(JSONObject order, String id) throws JSONException {
         HashMap<String, String> h_order = new HashMap<>();
 
+        Log.d("zha", order.toString())  ;
         h_order.put(from[0], order.getString("state"));
         h_order.put(from[1], order.getString("name"));
         h_order.put(from[2], order.getString("type"));
@@ -284,6 +287,8 @@ public class OrderActivity extends AppCompatActivity {
         h_order.put(from[5], String.valueOf(order.getInt("lots")));
         h_order.put(from[6], id);
         h_order.put(from[7], order.getString("time"));
+        h_order.put(from[8], order.getString("cover_lots"));
+        h_order.put(from[9], order.getString("new_lots"));
 
         int m = 0, v = 0;
         JSONObject pv = order.getJSONObject("p_v");
@@ -301,7 +306,6 @@ public class OrderActivity extends AppCompatActivity {
         h_order.put(from[4], String.valueOf((m/v)));
 
         datalist.add(h_order);
-        Log.d("zha", h_order.toString());
         adapter.notifyDataSetInvalidated();
     }
 

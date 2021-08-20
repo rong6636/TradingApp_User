@@ -6,88 +6,232 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_w"
-    tools:context=".HomePage">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#1d2333"
-        >
-
-        <TextView
-            android:id="@+id/txv_accountName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="帳號名稱"
-            android:textColor="#FFF"
-            android:textSize="@dimen/sp_22"
-            android:gravity="center"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            />
-
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="O"
-            android:background="#1d2333"
-            android:layout_alignParentRight="true"
-            android:textColor="#FFF"
-            android:onClick="clickAccount"
-            />
-
-    </RelativeLayout >
+    tools:context=".HomePage"
+    android:background="@color/bg_primary"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_60"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:src="@drawable/avatar_level_1a"
+            />
+        <LinearLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/txv_accountName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="帳號名稱"
+                android:textColor="#FFF"
+                android:textSize="@dimen/sp_20"
+                />
+            <TextView
+                android:id="@+id/txv_accountTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="s封a弊o者s"
+                android:textColor="#FFF"
+                android:textSize="@dimen/sp_13"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:text="「帳」"
+            android:textSize="@dimen/sp_15"
+            android:textColor="#FFF"
+            android:onClick="clickAccount"
+            android:background="@color/bg_primary"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
         android:layout_weight="2"
-        android:background="#05080c"
-        android:orientation="vertical"
-        android:layout_marginBottom="1.8dp"
-        android:paddingVertical="5dp"
+        android:orientation="horizontal"
         >
         <LinearLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/txv_Home_Main1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加權指數"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_18"
+                android:textColor="#2196f3"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main1_Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textSize="@dimen/sp_15"
+                android:textColor="#FFF"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main1_Change"
+                android:layout_width="65dp"
+                android:layout_height="25dp"
+                android:text="+10.00%"
+                android:textSize="@dimen/sp_13"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:gravity="center|right"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/txv_Home_Main2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上櫃指數"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_18"
+                android:textColor="#2196f3"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main2_Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textSize="@dimen/sp_15"
+                android:textColor="#FFF"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main2_Change"
+                android:layout_width="65dp"
+                android:layout_height="25dp"
+                android:text="+10.00%"
+                android:textSize="@dimen/sp_13"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:gravity="center|right"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/txv_Home_Main3_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="台指近一"
+                android:textStyle="bold"
+                android:textSize="@dimen/sp_18"
+                android:textColor="#2196f3"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main3_Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textSize="@dimen/sp_15"
+                android:textColor="#FFF"
+                />
+            <TextView
+                android:id="@+id/txv_Home_Main3_Change"
+                android:layout_width="65dp"
+                android:layout_height="25dp"
+                android:text="+10.00%"
+                android:textSize="@dimen/sp_13"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:gravity="center|right"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:layout_marginBottom="1.8dp"
+        android:paddingVertical="@dimen/dp_5"
+        >
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:text="Service"
+            android:textSize="@dimen/dp_15"
+            android:textColor="@color/primary_white"
+            android:layout_marginLeft="@dimen/dp_5"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            >
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="證"
-                android:textSize="@dimen/sp_48"
-                android:textColor="#2196f3"
+                android:textSize="@dimen/sp_42"
+                android:textColor="@color/text_primary"
                 android:onClick="clickTradingStock"
                 />
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="期"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 android:onClick="clickTradingFutures"
                 />
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="委"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 android:onClick="clickOrder"
                 />
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="細"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 android:onClick="clickDetail"
                 />
@@ -95,44 +239,45 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dp_0"
             android:layout_weight="1"
             android:orientation="horizontal"
             android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
             >
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="看"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 android:onClick="clickTalk"
                 />
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="熱"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 />
 
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="庫"
                 android:textColor="#2196f3"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:onClick="clickPortfolio"/>
 
             <Button
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="帳"
-                android:textSize="@dimen/sp_48"
+                android:textSize="@dimen/sp_42"
                 android:textColor="#2196f3"
                 android:onClick="clickSecurityAccount"
                 />
@@ -144,133 +289,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_height="@dimen/dp_0"
+        android:layout_weight="9"
         android:orientation="vertical"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="1.8sp"
+            android:layout_height="@dimen/dp_0"
+            android:layout_weight="5"
             android:orientation="horizontal"
-            android:background="#123"
-            >
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="#123"
-                android:gravity="center"
-                >
-                <TextView
-                    android:id="@+id/txv_Home_Main1_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="加權指數"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#2196f3"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main1_Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.00"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#FFF"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main1_Change"
-                    android:layout_width="65dp"
-                    android:layout_height="25dp"
-                    android:text="+10.00%"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="#FFF"
-                    android:textStyle="bold"
-                    android:gravity="center|right"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="#123"
-                android:gravity="center"
-                >
-                <TextView
-                    android:id="@+id/txv_Home_Main2_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="上櫃指數"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#2196f3"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main2_Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.00"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#FFF"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main2_Change"
-                    android:layout_width="65dp"
-                    android:layout_height="25dp"
-                    android:text="+10.00%"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="#FFF"
-                    android:textStyle="bold"
-                    android:gravity="center|right"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="#123"
-                android:gravity="center"
-                >
-                <TextView
-                    android:id="@+id/txv_Home_Main3_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="台指近一"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#2196f3"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main3_Price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.00"
-                    android:textSize="@dimen/sp_18"
-                    android:textColor="#FFF"
-                    />
-                <TextView
-                    android:id="@+id/txv_Home_Main3_Change"
-                    android:layout_width="65dp"
-                    android:layout_height="25dp"
-                    android:text="+10.00%"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="#FFF"
-                    android:textStyle="bold"
-                    android:gravity="center|right"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:orientation="horizontal"
-            android:background="#123"
             >
             <Button
                 android:id="@+id/btn_bottomtest"
