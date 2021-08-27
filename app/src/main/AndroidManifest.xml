@@ -11,8 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".TalkActivity"></activity>
+        android:theme="@style/TradingApp">
+        <activity android:name=".HotStocksActivity"></activity>
+        <activity android:name=".TalkActivity" />
         <activity android:name=".InStockActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".SecuritiesAccountActivity" />

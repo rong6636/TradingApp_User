@@ -516,7 +516,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         intent.putExtra("from", "TradingFuturesActivity");
-        startActivityForResult(intent, 2);
+        startActivity(intent);
         close(view);
 
     }
@@ -640,7 +640,8 @@ public class TradingFuturesActivity extends AppCompatActivity {
         Intent intent = new Intent(TradingFuturesActivity.this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
-        startActivityForResult(intent, 8);
+        intent.putExtra("from", "TradingFuturesActivity");
+        startActivity(intent);
         close(view);
     }
 
@@ -648,6 +649,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
         Intent intent = new Intent(TradingFuturesActivity.this, InStockActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
+        intent.putExtra("from", "TradingFuturesActivity");
         startActivity(intent);
         close(view);
     }

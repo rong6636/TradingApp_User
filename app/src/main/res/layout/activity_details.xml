@@ -102,24 +102,15 @@
 
                 <Spinner
                     android:id="@+id/spr_details_choiceRange"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/dp_110"
+                    android:layout_height="@dimen/dp_30"
                     android:textSize="@dimen/sp_22"
-                    android:textColor="#DDD"
-                    android:layout_margin="@dimen/dp_5"
+                    android:layout_margin="@dimen/dp_10"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:background="@color/bg_primary_variant_bright"
+                    android:background="@drawable/button_drawable"
                     >
                 </Spinner>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="▼"
-                    android:textSize="@dimen/sp_18" />
 
             </LinearLayout>
             <TextView

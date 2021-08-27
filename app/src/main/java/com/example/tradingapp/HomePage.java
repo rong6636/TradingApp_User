@@ -2,6 +2,8 @@ package com.example.tradingapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -23,6 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,7 +49,8 @@ public class HomePage extends AppCompatActivity {
     private Intent intent;
     private String user, password;
     private String[] log_httpCllient;
-    private TextView txv_bottomLog, txv_accountName;
+    private TextView txv_bottomLog, txv_accountName, txv_accountTitle;
+    private ImageView img_accountAvatar;
     private TextView[] txv_Home_Main_Price;
     private TextView[] txv_Home_Main_Change;
     private int[] txv_Home_Main_Price_i;
@@ -57,38 +62,16 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
         initialization();
-
         iniThread();
-        connectRelitGetAccountDetail();
-    }
-
-
-    private void iniThread() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    for (int i = 0; i < 3; i++) {
-                        sendPOST(i);
-                        try {
-                            Thread.sleep(100+(int)(Math.random()*500));
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+        getHomePageData();
     }
 
     private void initialization() {
         txv_accountName = findViewById(R.id.txv_accountName);
+        txv_accountTitle = findViewById(R.id.txv_accountTitle);
+        img_accountAvatar = findViewById(R.id.img_accountAvatar);
         txv_bottomLog = findViewById(R.id.txv_bottomLog);
         intent = getIntent();
         user = intent.getStringExtra("user");
@@ -107,14 +90,30 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-
-    public void testBtn(View view) {
-        for (int i = 0; i < 3; i++) {
-            sendPOST(i);
-        }
+    private void iniThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    for (int i = 0; i < 3; i++) {
+                        getHomePageStockInformation(i);
+                        try {
+                            Thread.sleep(100+(int)(Math.random()*500));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
-    private void sendPOST(int i) {
+    private void getHomePageStockInformation(int i) {
         OkHttpClient client = new OkHttpClient();
         String[] url = new String[]{
                 "https://tw.quote.finance.yahoo.net/quote/q?type=tick&perd=1m&mkt=10&sym=%23001",
@@ -176,7 +175,7 @@ public class HomePage extends AppCompatActivity {
 
 
     @Override
-    protected void  onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode,data);
         if (requestCode == 8){
             if (data != null && data.getStringExtra("logout").equals("logout")) {
@@ -187,20 +186,13 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-    public void connectRelitGetAccountDetail() {
-        Log.d("zha","connectRelitGetAccountDetail");
-        String url_replit = "https://tradingappserver.masterrongwu.repl.co/get_account_detail";
-        url_replit+="?&user="+user+"&password="+password;
-        // 建立 OkHttpClient
+    public void getHomePageData() {
+        String url = "https://tradingappserver.masterrongwu.repl.co/get_HomePage_Data";
+        url+="?&user="+user+"&password="+password;
         OkHttpClient client = new OkHttpClient().newBuilder().build();
-        // 建立 Request，設定連線資訊
-        Request request = new Request.Builder()
-                .url(url_replit)
-                .build();
-        // 建立 Call
+        Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
 
-        // 執行 Call 連線
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -212,11 +204,20 @@ public class HomePage extends AppCompatActivity {
                         public void run() {
                             try {
                                 JSONObject data = new JSONObject(myResponse);
-                                String Name = data.getString("Name");
-                                String SigninTimes = data.getString("SigninTimes");
-                                String lastSinginTime = data.getString("lastSinginTime");
+                                JSONObject req = data.getJSONObject("returnHomePageInfo");
+                                String accountName = req.getString("accountName");
+                                String accountTitle = req.getString("accountTitle");
+                                String accountAvatar = req.getString("accountAvatar");
+                                Log.d("zha", "123123");
+                                JSONArray twHotStocksRank_list = req.getJSONArray("twHotStocksRank_list");
+                                Log.d("zha", twHotStocksRank_list.toString());
+                                txv_accountName.setText(accountName);
+                                txv_accountTitle.setText(accountTitle);
+                                int avatar_id = 0;
+                                if (accountAvatar.equals("a0"))
+                                    avatar_id = R.drawable.avatar_level_1a;
+                                img_accountAvatar.setImageResource(avatar_id);
 
-                                txv_accountName.setText(Name);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Log.d("zha", "failed myResponse");
@@ -290,6 +291,13 @@ public class HomePage extends AppCompatActivity {
 
     public void clickTalk(View view) {
         Intent intent = new Intent(HomePage.this, TalkActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("password", password);
+        startActivity(intent);
+    }
+
+    public void clickHot(View view) {
+        Intent intent = new Intent(HomePage.this, HotStocksActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
         startActivity(intent);

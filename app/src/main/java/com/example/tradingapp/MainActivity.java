@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edt_singin_inputuser, edt_singin_inputpw ;
     private TextView txv_loginlog;
     private Button btn_MianLogin;
-    public String APP_VERSION = "0.1.8";
+    public String APP_VERSION = "0.1.11";
     SharedPreferences pref;
 
     @Override
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         initalization();
         getAnnouncement();
-
     }
 
     private void initalization() {

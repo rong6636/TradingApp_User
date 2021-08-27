@@ -105,7 +105,6 @@ public class StockActivity extends AppCompatActivity {
     }
 
 
-
     private void initIntent() {
         Intent intent = getIntent();
         USER = intent.getStringExtra("user");
@@ -158,7 +157,6 @@ public class StockActivity extends AppCompatActivity {
     }
 
     private void searchStockThread() {
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -318,6 +316,7 @@ public class StockActivity extends AppCompatActivity {
         StockActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+//                動畫
                 Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
                 if (!txv_stock_titlePrice.getText().toString().equals(nprice)){
                     txv_stock_titlePrice.startAnimation(am_renew);
@@ -393,7 +392,6 @@ public class StockActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
     private void connectSeverTradingStock(String orderType) {
         OkHttpClient client = new OkHttpClient();
         Calendar mCal = Calendar.getInstance();
@@ -477,7 +475,6 @@ public class StockActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void test(View view) {
 
@@ -573,7 +570,7 @@ public class StockActivity extends AppCompatActivity {
             String content = "委託類型：買進 " + orderName +"\n"+
                     "委託價：" + orderPrice+"\n"+
                     orderLot+"單位 (1單位 = 1000股)\n\n"+
-                    "提醒：每日1點30分到2點40分停止委託。 此證卷系統未完成 股票系統只有成立委託單功能，還無法實現交易";
+                    "提醒：每日1點30分到2點40分停止委託。\n此證卷系統尚未完成，股票系統還在測試階段，還無法實現穩定交易。";
             new AlertDialog.Builder(StockActivity.this)
                     .setTitle("委託單確認")
                     .setMessage(content)
@@ -647,23 +644,27 @@ public class StockActivity extends AppCompatActivity {
         Intent intent = new Intent(StockActivity.this, DetailsActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
+        intent.putExtra("from", "StockActivity");
         startActivityForResult(intent, 8);
         close(view);
+
     }
 
     public void clickPortfolio(View view) {
         Intent intent = new Intent(StockActivity.this, InStockActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
+        intent.putExtra("from", "StockActivity");
         startActivity(intent);
         close(view);
+
     }
 
     public void clickPrice(View view) {
         TextView price = view.findViewById(view.getId());
-        Log.d("zha", price.getText().toString());
         orderPrice = Float.valueOf(price.getText().toString());
         txv_stock_orderPriceChoose.setText(String.format("%.02f", Float.valueOf(orderPrice)));
         txv_stcok_showBudget.setText("大約 TWD"+String.format("%.00f", orderPrice*orderLot*1000));
+
     }
 }

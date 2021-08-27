@@ -11,10 +11,14 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -42,22 +46,31 @@ public class TalkActivity extends AppCompatActivity {
 
     private TalkAdapter adapter;
     private ListView lsv_talk;
+    private EditText edt_talkInputTalk;
+    private Button btn_talkSpeak;
 
     private String USER, PASSWORD, activityFrom;
     private List<String> lUser;
     private List<String> lMsg;
     private List<String> lTime;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk);
 
+        initVeiw();
         initIntent();
         initListView();
         iniThread();
     }
 
+    private void initVeiw(){
+        edt_talkInputTalk = findViewById(R.id.edt_talkInputTalk);
+        btn_talkSpeak = findViewById(R.id.btn_talkSpeak);
+    }
 
     private void initIntent() {
         Intent intent = getIntent();
@@ -210,6 +223,91 @@ public class TalkActivity extends AppCompatActivity {
         });
     }
 
+    private void connectSeverPutSpeak() {
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://tradingAppServer.masterrongwu.repl.co/spead_in_talk";
+        String parameter = "?&user="+USER+"&msg="+editText.getText().toString();
+        Log.d("zha", url);
+        Request request = new Request.Builder()
+                .url(url+parameter)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("zha", "failed onFailure");
+                e.printStackTrace();
+                TalkActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FLAG_GET_TALK_PERMISSION = false;
+
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    TalkActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (myResponse.equals("spead_in_talk"))
+                                connectSeverGetTalk();
+                        }
+                    });
+
+                }
+                else{
+                    Log.d("zha", "failed onResponse");
+                    FLAG_GET_TALK_PERMISSION = false;
+                }
+            }
+        });
+    }
+
+    //    ==============處理滑鼠點擊editText控件外部==============
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideInput(v, ev)) {//点击editText控件外部
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    assert v != null;
+                    closeKeyboard(v);//软键盘工具类
+                    if (editText != null) {
+                        editText.clearFocus();
+                    }
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        return getWindow().superDispatchTouchEvent(ev) || onTouchEvent(ev);
+    }
+    EditText editText = null;
+    public boolean isShouldHideInput(View v, MotionEvent event) {
+        if (v != null && (v instanceof EditText)) {
+            editText = (EditText) v;
+            int[] leftTop = {0, 0};
+            //获取输入框当前的location位置
+            v.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + v.getHeight();
+            int right = left + v.getWidth();
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
+        }
+        return false;
+    }
+    public static void closeKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
 
     public void clickTalk(View view) {
@@ -217,6 +315,19 @@ public class TalkActivity extends AppCompatActivity {
     }
 
     public void clickMostActive(View view) {
+        Intent intent = new Intent(TalkActivity.this, HotStocksActivity.class);
+        intent.putExtra("user", USER);
+        intent.putExtra("password", PASSWORD);
+        startActivity(intent);
+        clickClose(view);
+
+    }
+
+    public void clickSpeak(View view) {
+        btn_talkSpeak.setVisibility(View.INVISIBLE);
+        connectSeverPutSpeak();
+        edt_talkInputTalk.setText("");
+        btn_talkSpeak.setVisibility(View.VISIBLE);
 
     }
 

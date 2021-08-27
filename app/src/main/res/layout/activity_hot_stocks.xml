@@ -5,11 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TalkActivity"
+    tools:context=".HotStocksActivity"
     android:orientation="vertical"
     android:background="@color/bg_primary"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
@@ -34,13 +33,13 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
             android:text="動態"
-            android:textColor="@color/text_primary_b"
+            android:textColor="#FFF"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
             android:onClick="clickTalk"
-            android:background="@color/bg_primary_variant_bright"
+            android:background="@color/bg_primary"
             />
 
         <Button
@@ -49,12 +48,12 @@
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
             android:text="觀火"
-            android:textColor="#FFF"
+            android:textColor="@color/text_primary_b"
             android:textSize="@dimen/sp_20"
             android:gravity="center"
             android:layout_gravity="center"
-            android:onClick="clickMostActive"
-            android:background="@color/bg_primary"
+            android:onClick="clickHotStocks"
+            android:background="@color/bg_primary_variant_bright"
             />
 
         <Button
@@ -87,6 +86,7 @@
 
     </LinearLayout >
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
@@ -95,53 +95,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="用戶動態"
+            android:text="熱門股票"
             android:textColor="#FFF"
             android:textSize="@dimen/sp_22"
             android:layout_gravity="center"
             android:textAlignment="center"
+            android:onClick="clickTest"
             />
-
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lsv_talk"
+        android:id="@+id/lis_hotStocksList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@null"
-        android:stackFromBottom="true"
-        >
-
+        android:layout_weight="1">
     </ListView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@color/bg_primary_variant_bright"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-        <EditText
-            android:id="@+id/edt_talkInputTalk"
-            android:layout_width="@dimen/dp_0"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_40"
-            android:textColor="@color/primary_white"
-            android:hint="說點什麼..."
-            android:textColorHint="#888"
-            android:layout_marginHorizontal="@dimen/dp_8"
-            />
-        <Button
-            android:id="@+id/btn_talkSpeak"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_35"
-            android:background="@drawable/button_drawable"
-            android:text="發送"
-            android:textSize="@dimen/sp_18"
-            android:onClick="clickSpeak"
-            />
-    </LinearLayout>
-
 
 </LinearLayout>

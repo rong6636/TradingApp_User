@@ -29,7 +29,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AccountActivity extends AppCompatActivity {
-    private TextView txv_log, edt_userName;
+    private TextView txv_log, edt_userName, txv_account_SignInTimes, txv_account_lastSignInTime;
     private String user, password, activityFrom;
     Button btn_rename;
     boolean flag_btn_rename;
@@ -49,6 +49,8 @@ public class AccountActivity extends AppCompatActivity {
         btn_rename.setText("E");
         flag_btn_rename = true;
         edt_userName = findViewById(R.id.edt_userName);
+        txv_account_SignInTimes = findViewById(R.id.txv_account_SignInTimes);
+        txv_account_lastSignInTime = findViewById(R.id.txv_account_lastSignInTime);
         txv_log = findViewById(R.id.txv_log);
     }
 
@@ -61,6 +63,7 @@ public class AccountActivity extends AppCompatActivity {
             activityFrom = "";
         }
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -131,6 +134,8 @@ public class AccountActivity extends AppCompatActivity {
                                 String lastSinginTime = data.getString("lastSinginTime");
 
                                 edt_userName.setText(Name);
+                                txv_account_SignInTimes.setText("登入次數："+SigninTimes);
+                                txv_account_lastSignInTime.setText("最後登入時間："+lastSinginTime);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Log.d("zha", "failed myResponse");

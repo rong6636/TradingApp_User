@@ -1,14 +1,18 @@
 package com.example.tradingapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -40,6 +44,9 @@ public class InStockActivity extends AppCompatActivity {
     Map futuresPrice = new HashMap();
     Map urlList = new HashMap();
 
+    Map stocksPrice = new HashMap();
+    Map stocksName = new HashMap();
+
     private JSONObject jsonTwStock;
     private JSONObject jsonTwFutures;
 
@@ -55,7 +62,7 @@ public class InStockActivity extends AppCompatActivity {
         initialization();
         initListView();
         initIntent();
-        connectSeverGetPortfolio();
+        getInStocks();
         renewItemThread();
     }
 
@@ -72,7 +79,7 @@ public class InStockActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     try {
-                        renewPortfolioItem();
+                        renewInStocksItem();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -142,11 +149,11 @@ public class InStockActivity extends AppCompatActivity {
     }
 
 
-    private void connectSeverGetPortfolio() {
+    private void getInStocks() {
         OkHttpClient client = new OkHttpClient();
 
         String parameter = "user="+user+"&password="+password;
-        String url = "https://tradingAppServer.masterrongwu.repl.co/getPortfolio?"+parameter;
+        String url = "https://tradingAppServer.masterrongwu.repl.co/getInStocks?"+parameter;
         Log.d("zha", url);
         Request request = new Request.Builder()
                 .url(url)
@@ -177,7 +184,7 @@ public class InStockActivity extends AppCompatActivity {
 
                                 jsonTwStock = data.getJSONObject("twStocks");
                                 jsonTwFutures = data.getJSONObject("twFutures");
-                                renewPortfolioItem();
+                                renewInStocksItem();
 
                                 FLAG_RENEW_ITEM_PERMISSION = true;
                             } catch (JSONException e) {
@@ -185,6 +192,75 @@ public class InStockActivity extends AppCompatActivity {
                                 Log.d("zha", "failed myResponse");
                                 txv_inStockRenewTime.setText("回傳格式出錯");
                                 FLAG_RENEW_ITEM_PERMISSION = false;
+                            }
+                        }
+                    });
+                }
+                else{
+                    Log.d("zha", "response Failed");
+                }
+            }
+        });
+    }
+
+    private void getStocksInfo(String ticker) {
+        String url = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch="+ticker+".tw&json=1&delay=0";;
+        Log.d("zha", url);
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String myResponse = response.body().string();
+                    Log.d("zha",myResponse);
+                    InStockActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject data = new JSONObject(myResponse);
+                                Log.d("zha", data.toString())   ;
+                                if (data.has("msgArray")) {
+                                    if (data.getJSONArray("msgArray").length() == 0) {
+
+                                    } else {
+                                        JSONObject item = data.getJSONArray("msgArray").getJSONObject(0);
+
+                                        String n = item.getString("n");
+                                        String nf = item.getString("nf");
+                                        String ex = item.getString("ex");
+                                        String z = item.getString("z");
+                                        String tv = item.getString("tv");
+                                        String v = item.getString("v");
+                                        String[] bestBidP = item.getString("b").split("_");
+                                        String[] bestBidL = item.getString("g").split("_");
+                                        String[] bestAskP = item.getString("a").split("_");
+                                        String[] bestAskL = item.getString("f").split("_");
+                                        String t = item.getString("t");
+
+                                        String y = item.getString("y");
+
+                                        if (z.equals("-"))
+                                            z = bestBidP[0];
+
+                                        stocksName.put(ticker, n);
+                                        stocksPrice.put(ticker, String.format("%.02f", Float.valueOf(z)));
+
+
+                                    }
+                                }
+                            }catch (JSONException e) {
+                                Log.d("zha", "Failed");
+                                e.printStackTrace();
                             }
                         }
                     });
@@ -241,7 +317,7 @@ public class InStockActivity extends AppCompatActivity {
         getFuturesPrice("電子期近一");
     }
 
-    public void renewPortfolioItem() throws JSONException {
+    public void renewInStocksItem() throws JSONException {
         datalist.clear();
         Iterator it_twStocks = jsonTwStock.keys();
         Iterator it_twFutures = jsonTwFutures.keys();
@@ -249,18 +325,53 @@ public class InStockActivity extends AppCompatActivity {
         while (it_twStocks.hasNext()){
             String stock = (String)it_twStocks.next();
             JSONObject jStock = jsonTwStock.getJSONObject(stock);
-            addElementToPortfolioList(jStock, stock);
+            addElementToInStocksList_twStocks(jStock, stock);
         }
 
         while (it_twFutures.hasNext()){
             String futures = (String)it_twFutures.next();
             JSONObject jFutures = jsonTwFutures.getJSONObject(futures);
-            addElementToPortfolioList(jFutures, futures);
+            addElementToInStocksList_twFutures(jFutures, futures);
         }
     }
 
-    public void addElementToPortfolioList(JSONObject data, String name) throws JSONException {
-        Log.d("zha", "11112");
+
+    public void addElementToInStocksList_twStocks(JSONObject data, String name) throws JSONException {
+        InStockActivity.this.runOnUiThread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                try {
+                    if (Math.abs(data.getInt("Lots"))>0)
+                    {
+                        getStocksInfo(name);
+                        HashMap<String, String> h_inStock = new HashMap<>();
+
+                        h_inStock.put(from[0], stocksName.getOrDefault(name, name).toString());
+                        h_inStock.put(from[1], stocksPrice.getOrDefault(name, "-").toString());
+                        h_inStock.put(from[2], data.getString("Average_Price"));
+                        h_inStock.put(from[3], String.valueOf(Math.abs(data.getInt("Lots"))));
+                        if (data.getInt("Lots") > 0) {
+                            h_inStock.put(from[4], "買");
+                        } else {
+                            h_inStock.put(from[4], "賣");
+                        }
+                        double income = 0;
+                        if (!stocksPrice.getOrDefault(name, "-").toString().equals("-")){
+                            income = (Float.valueOf(stocksPrice.get(name).toString())-data.getDouble("Average_Price"))*data.getInt("Lots")*1000;
+                        }
+                        h_inStock.put(from[5], String.valueOf(Math.round(income)));
+                        datalist.add(h_inStock);
+                        adapter.notifyDataSetInvalidated();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void addElementToInStocksList_twFutures(JSONObject data, String name) throws JSONException {
         InStockActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -268,8 +379,6 @@ public class InStockActivity extends AppCompatActivity {
                     if (Math.abs(data.getInt("Lots"))>0)
                     {
                         HashMap<String, String> h_inStock = new HashMap<>();
-                        Log.d("zha", data.toString());
-                        Log.d("zha", name);
 
                         h_inStock.put(from[0], name);
                         h_inStock.put(from[1], futuresPrice.get(name).toString());
@@ -296,7 +405,6 @@ public class InStockActivity extends AppCompatActivity {
                         h_inStock.put(from[5], String.valueOf(Math.round(income)));
 
                         datalist.add(h_inStock);
-                        Log.d("zha", h_inStock.toString());
                         adapter.notifyDataSetInvalidated();
                     }
                 } catch (JSONException e) {
@@ -304,8 +412,6 @@ public class InStockActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     public void clickClose(View view) {
@@ -337,7 +443,7 @@ public class InStockActivity extends AppCompatActivity {
         Intent intent = new Intent(InStockActivity.this, OrderActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
-        intent.putExtra("from", "TradingFuturesActivity");
+        intent.putExtra("from", activityFrom);
         startActivityForResult(intent, 2);
         clickClose(view);
     }
@@ -346,6 +452,7 @@ public class InStockActivity extends AppCompatActivity {
         Intent intent = new Intent(InStockActivity.this, DetailsActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
+        intent.putExtra("from", activityFrom);
         startActivity(intent);
         clickClose(view);
     }

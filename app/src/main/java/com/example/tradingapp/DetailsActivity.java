@@ -255,7 +255,6 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
-
     private void showDetails(HashMap<String, String> data){
         Log.d("zha", data.toString());
         String content = "委託：" +data.get("type") + " " +data.get("ticker")+"\n"+ "委託時間：" +data.get("time") + "\n" +"成交數："+data.get("lots")+"\n"+data.get("detail");
@@ -280,14 +279,14 @@ public class DetailsActivity extends AppCompatActivity {
             Intent intent = new Intent(DetailsActivity.this, StockActivity.class);
             intent.putExtra("user", user);
             intent.putExtra("password", password);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
             clickClose(view);
         }
         else if (activityFrom.equals("TradingFuturesActivity")){
             Intent intent = new Intent(DetailsActivity.this, TradingFuturesActivity.class);
             intent.putExtra("user", user);
             intent.putExtra("password", password);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
             clickClose(view);
         }
         else{
@@ -300,8 +299,8 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = new Intent(DetailsActivity.this, OrderActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
-        intent.putExtra("from", "TradingFuturesActivity");
-        startActivityForResult(intent, 2);
+        intent.putExtra("from", activityFrom);
+        startActivity(intent);
         clickClose(view);
 
     }
@@ -314,6 +313,7 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = new Intent(DetailsActivity.this, InStockActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
+        intent.putExtra("from", activityFrom);
         startActivity(intent);
         clickClose(view);
     }

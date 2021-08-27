@@ -94,10 +94,15 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void showOrderDetail(HashMap<String, String> data){
-        String content = "委託：" +data.get("type")+" "+data.get("name")+ "\n委託時間：" + data.get("time") + "\n當前狀態：" +data.get("state") + "\n"
-                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" + data.get("lots") + "\n"
-                + "已成交量：" +(Integer.valueOf(data.get("lots")) - Integer.valueOf(data.get("new_lots")) - Integer.valueOf(data.get("cover_lots"))) + "\n"
-                + "未成交量：" +(Integer.valueOf(data.get("new_lots")) + Integer.valueOf(data.get("cover_lots"))) + "\n";
+        Log.d("zha", "content");
+        String content = "委託：" +data.get("type")+" "+data.get("name")+ "\n委託時間：" + data.get("time") + "\n當前狀態：" +data.get("state") + "\n";
+        Log.d("zha", "content1");
+        content += "委託價：" + data.get("orderPrice") + "\n" + "委託量：" + data.get("lots") + "\n";
+        Log.d("zha", "content2");
+        content += "已成交量：" +(int)(Float.valueOf(data.get("lots")) - Float.valueOf(data.get("new_lots")) - Float.valueOf(data.get("cover_lots"))) + "\n";
+        Log.d("zha", "content3");
+        content += "未成交量：" + (int)(Float.valueOf(data.get("new_lots")) + Float.valueOf(data.get("cover_lots"))) + "\n";
+        Log.d("zha", content);
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("委託書號：" + data.get("id"))
                 .setMessage(content)
@@ -115,11 +120,12 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+        Log.d("zha", "123");
     }
 
     private void showOrderDetail_2(HashMap<String, String> data){
-        String content = "委託：" +data.get("type")+" "+data.get("name") + "\n當前狀態：" +data.get("state") + "\n"
-                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n"+ "委託時間：" +data.get("time") + "\n";
+        String content = "委託：" +data.get("type")+" "+data.get("name")+ "\n委託時間：" +data.get("time") + "\n當前狀態：" +data.get("state") + "\n"
+                + "委託價：" + data.get("orderPrice") + "\n" + "委託量：" +data.get("lots") + "\n";
         new AlertDialog.Builder(OrderActivity.this)
                 .setTitle("委託書號：" + data.get("id"))
                 .setMessage(content)
@@ -193,12 +199,6 @@ public class OrderActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 Log.d("zha", "failed onFailure");
                 e.printStackTrace();
-                OrderActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
             }
 
             @Override
@@ -215,6 +215,7 @@ public class OrderActivity extends AppCompatActivity {
 
                                 JSONObject req = new JSONObject(myResponse);
                                 JSONArray data = req.getJSONArray("orderlist");
+                                Log.d("zha", data.toString());
                                 datalist.clear();
 
                                 for (int i = 0; i< data.length(); i++)
@@ -335,6 +336,7 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = new Intent(OrderActivity.this, DetailsActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
+        intent.putExtra("from", activityFrom);
         startActivity(intent);
         close(view);
 
@@ -344,6 +346,7 @@ public class OrderActivity extends AppCompatActivity {
         Intent intent = new Intent(OrderActivity.this, InStockActivity.class);
         intent.putExtra("user", USER);
         intent.putExtra("password", PASSWORD);
+        intent.putExtra("from", activityFrom);
         startActivity(intent);
         close(view);
 
