@@ -72,7 +72,6 @@ public class HomePage extends AppCompatActivity {
         txv_accountName = findViewById(R.id.txv_accountName);
         txv_accountTitle = findViewById(R.id.txv_accountTitle);
         img_accountAvatar = findViewById(R.id.img_accountAvatar);
-        txv_bottomLog = findViewById(R.id.txv_bottomLog);
         intent = getIntent();
         user = intent.getStringExtra("user");
         password = intent.getStringExtra("password");
@@ -240,6 +239,7 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(HomePage.this, StockActivity.class);
         intent.putExtra("user", user);
         intent.putExtra("password", password);
+        intent.putExtra("ticker", "tse_2330");
         startActivity(intent);
     }
 

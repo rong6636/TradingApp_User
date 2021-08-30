@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/btn_futures_close"
+            android:id="@+id/btn_hotStocks_close"
             android:layout_width="@dimen/dp_30"
             android:layout_height="match_parent"
             android:text="X"
@@ -28,7 +28,7 @@
             />
 
         <Button
-            android:id="@+id/btn_futures_trading"
+            android:id="@+id/btn_hotStocks_trading"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -43,7 +43,7 @@
             />
 
         <Button
-            android:id="@+id/btn_futures_orderlsit"
+            android:id="@+id/btn_hotStocks_orderlsit"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -57,7 +57,7 @@
             />
 
         <Button
-            android:id="@+id/btn_futures_investments"
+            android:id="@+id/btn_hotStocks_investments"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -71,7 +71,7 @@
             />
 
         <Button
-            android:id="@+id/btn_futures_account"
+            android:id="@+id/btn_hotStocks_account"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_40"
@@ -92,6 +92,17 @@
         android:layout_height="@dimen/dp_60"
         android:background="@color/bg_primary_variant_bright"
         >
+        <Spinner
+            android:id="@+id/spr_hotStocks_choiceType"
+            android:layout_width="@dimen/dp_110"
+            android:layout_height="@dimen/dp_30"
+            android:textSize="@dimen/sp_22"
+            android:layout_margin="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/button_drawable"
+            >
+        </Spinner>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

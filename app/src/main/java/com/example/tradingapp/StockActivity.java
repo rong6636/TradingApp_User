@@ -53,7 +53,7 @@ public class StockActivity extends AppCompatActivity {
     Boolean FLAG_TRADING_PERMISSION = false;
     Boolean FLAG_SEARCH_STOCK_PERMISSION = true;
 
-    String orderStock = "tse_2330", USER, PASSWORD, orderName = "台積電";
+    String orderStock, USER, PASSWORD, orderName;
     float orderPrice = 0, downX,downY,upX,upY;
     int orderLot = 0;
 
@@ -63,9 +63,8 @@ public class StockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
 
-        iniTextView();
         initIntent();
-
+        iniTextView();
         searchStockThread();
     }
 
@@ -109,11 +108,17 @@ public class StockActivity extends AppCompatActivity {
         Intent intent = getIntent();
         USER = intent.getStringExtra("user");
         PASSWORD = intent.getStringExtra("password");
+        orderStock = intent.getStringExtra("ticker");
+        if (orderStock == null) {
+            orderStock="tse_2603";
+        }
+        orderStock.replace(".tw", "");
     }
 
     private void iniTextView() {
         edt_stock_searchstock = findViewById(R.id.edt_stock_searchstock);
         edt_stock_searchstock.setImeActionLabel("Custom text", KeyEvent.KEYCODE_ENTER);
+        edt_stock_searchstock.setText(orderStock.substring(4));
         txv_stock_titleType = findViewById(R.id.txv_stock_titleType);
         txv_stock_titleName = findViewById(R.id.txv_stock_titleName);
         txv_stock_titlePrice = findViewById(R.id.txv_stock_titlePrice);
@@ -212,30 +217,29 @@ public class StockActivity extends AppCompatActivity {
                                     else {
                                         JSONObject item = data.getJSONArray("msgArray").getJSONObject(0);
                                         Animation am_renew = AnimationUtils.loadAnimation(getBaseContext(), R.anim.alpha_renewtrading);
-
+                                        // 擷取資料
                                         String n = item.getString("n");
                                         String nf = item.getString("nf");
                                         String ex = item.getString("ex");
                                         String z = item.getString("z");
                                         String tv = item.getString("tv");
                                         String v = item.getString("v");
-                                        String[] bestBidP = item.getString("b").split("_");
-                                        String[] bestBidL = item.getString("g").split("_");
-                                        String[] bestAskP = item.getString("a").split("_");
-                                        String[] bestAskL = item.getString("f").split("_");
+                                        String[] bestBidP = item.getString("b").replace("-", "0.0_0.0_0.0_0.0_0.0_").split("_");
+                                        String[] bestBidL = item.getString("g").replace("-", "0_0_0_0_0_").split("_");
+                                        String[] bestAskP = item.getString("a").replace("-", "0.0_0.0_0.0_0.0_0.0_").split("_");
+                                        String[] bestAskL = item.getString("f").replace("-", "0_0_0_0_0_").split("_");
                                         String t = item.getString("t");
-
                                         String y = item.getString("y");
 
-                                        orderName = n;
 
+                                        orderName = n;
+                                        // 要價喊價
                                         int tatalBidLot = 0, tatalAskLot = 0;
                                         for (int i = 0; i < 5; i++) {
                                             String bp = String.format("%.02f", Float.valueOf(bestBidP[i]));
                                             String ap = String.format("%.02f", Float.valueOf(bestAskP[i]));
                                             String bl = bestBidL[i];
                                             String al = bestAskL[i];
-
                                             if (!txv_stock_bidprice[i].getText().toString().equals(bp)){
                                                 txv_stock_bidprice[i].startAnimation(am_renew);
                                                 txv_stock_bidlot[i].startAnimation(am_renew);
@@ -251,7 +255,6 @@ public class StockActivity extends AppCompatActivity {
                                                 txv_stock_asklot[i].startAnimation(am_renew);
                                             }
 
-
                                             txv_stock_bidprice[i].setText(bp);
                                             txv_stock_bidlot[i].setText(bl);
                                             txv_stock_askprice[i].setText(ap);
@@ -260,7 +263,6 @@ public class StockActivity extends AppCompatActivity {
                                             tatalAskLot += Integer.valueOf(bestAskL[i]);
                                         }
                                         z = z.replace("-", bestBidP[0]);
-
 
                                         txv_stock_total_bid.setText(String.valueOf(tatalBidLot));
                                         txv_stock_total_ask.setText(String.valueOf(tatalAskLot));
@@ -282,7 +284,6 @@ public class StockActivity extends AppCompatActivity {
                                             txv_stock_titlePrice.setTextColor(getResources().getColor(R.color.loser_));
                                             txv_stock_titleChange.setTextColor(getResources().getColor(R.color.loser_));
                                         }
-
                                         renewUiTitleText(type, n, String.format("%.02f", Float.valueOf(z)), str_change, t);
 
 //                                        下單區更新
@@ -392,12 +393,13 @@ public class StockActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
     private void connectSeverTradingStock(String orderType) {
         OkHttpClient client = new OkHttpClient();
         Calendar mCal = Calendar.getInstance();
         CharSequence s = DateFormat.format("MM-dd kk:mm:ss", mCal.getTime());    // kk:24小時制, hh:12小時制
 
-        String parameter = "user=" + USER + "&password=" + PASSWORD + "&type=" + orderType + "&market=twStocks" + "&ticker=" + orderStock + "&price=" + orderPrice + "&lot=" + orderLot + "&time=" + s + "&name=" + orderName;
+        String parameter = "user=" + USER + "&password=" + PASSWORD + "&type=" + orderType + "&market=twStocks" + "&ticker=" + orderStock + "&price=" + String.format("%.02f", orderPrice) + "&lot=" + orderLot + "&time=" + s + "&name=" + orderName;
         String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?" + parameter;
         Log.d("zha", url);
         Request request = new Request.Builder()
@@ -603,7 +605,7 @@ public class StockActivity extends AppCompatActivity {
             String content = "委託類型：賣出 " + orderName +"\n"+
                     "委託價：" + orderPrice+"\n"+
                     orderLot+"單位 (1單位 = 1000股)\n\n"+
-                    "提醒：每日1點30分到2點40分停止委託。 此證卷系統未完成 股票系統只有成立委託單功能，還無法實現交易";
+                    "提醒：每日1點30分到2點40分停止委託。 此證卷系統未完成 無法穩定實現交易";
             new AlertDialog.Builder(StockActivity.this)
                     .setTitle("委託單確認")
                     .setMessage(content)

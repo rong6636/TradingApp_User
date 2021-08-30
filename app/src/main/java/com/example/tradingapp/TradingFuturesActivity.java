@@ -62,7 +62,6 @@ public class TradingFuturesActivity extends AppCompatActivity {
     int orderLot = 0;
     ArrayAdapter<String> adapterTwseFuturesList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -376,6 +375,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
             }
         });
     }
+
     public void renewMargin(){
         OkHttpClient client = new OkHttpClient();
         String url = "https://tradingAppServer.masterrongwu.repl.co/getMargin?futures="+futuresList[currentFuturesIndex];
@@ -415,7 +415,7 @@ public class TradingFuturesActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
         Calendar mCal = Calendar.getInstance();
         CharSequence s = DateFormat.format("MM-dd kk:mm:ss", mCal.getTime());    // kk:24小時制, hh:12小時制
-        String parameter = "user="+user+"&password="+password+"&type="+orderType+"&market=twFutures"+"&ticker="+futuresList[currentFuturesIndex]+"&price="+orderPrice+"&lot="+orderLot+"&time="+s+"&name="+futuresList[currentFuturesIndex];
+        String parameter = "user="+user+"&password="+password+"&type="+orderType+"&market=twFutures"+"&ticker="+futuresList[currentFuturesIndex]+"&price="+ String.format( "%.02f",orderPrice) +"&lot="+orderLot+"&time="+s+"&name="+futuresList[currentFuturesIndex];
         String url = "https://tradingAppServer.masterrongwu.repl.co/entrust?"+parameter;
         Log.d("zha", url);
         Request request = new Request.Builder()

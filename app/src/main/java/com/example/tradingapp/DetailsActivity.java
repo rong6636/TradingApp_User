@@ -97,10 +97,7 @@ public class DetailsActivity extends AppCompatActivity {
         rangeTime = new String[]{"今天", "近三天", "近月", "近季", "近年"};
         irangeTime = new int[]{ 1, 3, 31, 90, 365};
 
-        Log.d("zha", "111");
-
         adapterRangeTime = new ArrayAdapter<>(DetailsActivity.this, android.R.layout.simple_spinner_dropdown_item, rangeTime);
-        Log.d("zha", "112");
         spr_details_choiceRange = findViewById(R.id.spr_details_choiceRange);
         spr_details_choiceRange.setAdapter(adapterRangeTime);
         spr_details_choiceRange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

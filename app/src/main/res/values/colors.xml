@@ -7,11 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grainer_">#c30000</color>
-    <color name="loser_">#00b248</color>
+    <color name="grainer_">#E62222</color>
+    <color name="loser_">#11b248</color>
 
     <color name="primary_black">#05080c</color>
-    <color name="primary_white">#FFF</color>
+    <color name="primary_white">#EEE</color>
 
     <color name="bg_primary">#141424</color>
     <color name="bg_primary_variant_dark">#1A203B</color>
